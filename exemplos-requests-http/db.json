@@ -1,0 +1,20 @@
+{
+  "cursos": [
+    {
+      "id": 1,
+      "nome": "Angular"
+    },
+    {
+      "nome": "Java OO",
+      "id": 2
+    },
+    {
+      "nome": "Angular9",
+      "id": 3
+    },
+    {
+      "nome": "CSS3",
+      "id": 5
+    }
+  ]
+}

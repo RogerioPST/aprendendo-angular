@@ -1,0 +1,19 @@
+<nav *ngIf="mostrarMenu">
+	<div>
+		<a [routerLinkActiveOptions]="{exact: true}" routerLinkActive="ativa" routerLink="">Aplicação de Rotas</a>
+		<ul>
+			<li [routerLinkActiveOptions]="{exact: true}"  routerLinkActive="ativa"><a routerLink="">Home</a></li>			
+			<li routerLinkActive="ativa"><a routerLink="login">Login</a></li>
+			<li routerLinkActive="ativa"><a routerLink="cursos" [queryParams]="{pagina:1}">Cursos</a></li>
+			<li routerLinkActive="ativa"><a [routerLink]="['cursos', idCurso.value]">Curso com ID</a></li>
+			<li routerLinkActive="ativa"><a routerLink="alunos">Alunos</a></li>
+			<li routerLinkActive="ativa"><a routerLink="professores">Professores</a></li>
+		</ul>
+	</div>
+</nav>
+<!--o router outlet abaixo q permite colocar as rotas na app-->
+<p>entre com o ID do curso
+<input type="text" #idCurso>
+</p>
+<!--o componente da rota chamado (cursos ou alunos ou login) eh renderizado dentro dessa tag-->
+<router-outlet></router-outlet>

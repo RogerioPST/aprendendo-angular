@@ -1,0 +1,67 @@
+1.criar um projeto c o routing e o 'S' indica q eh sem arquivos de testes
+ng new exemplos-requests-http --routing --style=scss -S
+
+2.criar um modulo de cursos p o CRUD:
+2.1. 'ng g m cursos --routing'
+
+3. simular um back end com o json server:
+3.1.'npm i -g json-server'
+3.2. criar o arquivo db.json:
+{
+	"cursos":[
+		{"id": 1, "nome": "Angular"}
+	]
+}
+3.3. cmd 'json-server --watch db.json'
+-> vai listar todos os recursos e deixa disponivel um server
+na porta 3000:
+  Resources
+  http://localhost:3000/cursos
+
+  Home
+  http://localhost:3000
+
+4. p n precisar usar o codigo abaixo p dar espaço entre buttons:
+'
+<button>Atualizar</button>
+				{{ ' ' }}
+				<button>Remover</button>
+				',
+podemos usar 'preserveWhitespaces: true' no component. 
+
+5. 	antes de parametrizar c <Curso[]>, o retorno era 
+	(method) CursosService.list(): Observable<Object>
+5.1. parametrizando qual o tipo de retorno do metodo list
+com <Curso[]> 'return this.http.get<Curso[]>(this.API)', o retorno
+agora é:
+	(method) CursosService.list(): Observable<Curso[]>
+
+6. por padrao, o Observable eh lazy. eh um stream de dados. seria
+a mesma coisa q escutar um click de um botao.
+6.1. entao, a gente precisa se inscrever e ficar escutando as 
+mudanças q serao enviadas por esse Observable.
+
+
+7. a melhor forma p debug eh usar o tap, como abaixo:
+'
+export class CursosService {
+	list(){
+		return this.http.get<Curso[]>(this.API)
+		.pipe(
+			tap(console.log),
+		)
+'
+8. como usar variaveis de ambiente no angular:
+8.1. no arquivo 'angular.json', qdo eh feito um build p prd, 
+vai usar o arquivo 'environment.prod.ts', como pode ser visto
+abaixo:
+'
+"configurations": {
+	"production": {
+		"fileReplacements": [
+			{
+				"replace": "src/environments/environment.ts",
+				"with": "src/environments/environment.prod.ts"
+			}
+		], 
+'

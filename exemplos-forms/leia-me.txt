@@ -1,0 +1,79 @@
+criar o projeto agora com routing:
+'ng new exemplos-forms --routing'
+
+criando componente:
+'ng g c template-form'
+
+->Template Forms:
+codigo: <form #f="ngForm">  -> dizemos ao angular q queremos ajuda
+dele p gerenciar.
+
+com a diretiva ngModel em cada campo e o atributo nome em
+cada campo, fazemos o binding
+do campo com o formulario
+
+criando um modulo separado da app principal:
+'ng g m template-form'
+-> precisa colocar o FormsModule nesse modulo criado e esse modulo
+criado precisa ir p o imports do app.module.ts
+
+-> Curso Angular #81: Forms (Dica): Verificando dados do Form no template com JSON
+componente: form-debug.component.ts
+
+-> diretiva ngModelGroup="endereco" vai fazer com que os 
+	campos de dentro fiquem dentro de endereco
+
+-> plugin angular language service
+__
+-> criando modulo compartilhado/shared:
+Passos:
+1. cmd: 'ng g m shared'
+2. passar a pasta 'form-debug' p dentro da pasta 'shared'
+3. mover pasta 'campo-control.erro' p dentro de 'shared'
+4. nas declarations de shared.module.ts, colocar 'FormDebugComponent'
+e 'CampoControlErroComponent' e como queremos utilizar esses
+componentes em outros modulos, precisamos coloca-los no 'exports'.
+5. no template.form.module, retirar os dois componentes do item 4 
+de declarations e colocar o SharedModule em 'imports'.
+6. no data.form.module, retirar os dois componentes do item 4 
+de declarations e colocar o SharedModule em 'imports'.
+
+
+->Data Driven Forms:
+-> preferencialmente, usar Data Driven Forms. Anotações:
+1. adicionar o ReactiveFormsModule ao app.module.ts
+2. criar o modulo de data-form 'ng g m data-form', adicionar o 
+DataFormComponent como declarations  e ReactiveFormsModule como
+imports nesse DataFormModule e adiconar o DataFormModule no 
+app.module.ts como imports.
+3. alterar o DataFormComponent
+
+-> criando um serviço de dropdown em SHARED p ser usado p trazer
+os estados entre outras coisas. Passos:
+1. 'ng g s shared/services/dropdown'
+//o item 2 abaixo soh ate o angular 6. depois, n precisa mais, 
+pois tem o providedin : 'root' no service.
+2. colocar como providers do shared.module.ts o 'DropdownService'
+
+-> criando um modelo de Estado. Passos:
+1. 'ng g class shared/models/estado-br'
+
+-> criando um serviço de consulta-cep p ser shared. passos:
+1. 'ng g s shared/services/consulta-cep'
+
+-> usar Observable, como a seguir:
+'this.estados = this.dropDownService.getEstadosBr()'
+junto com o 
+"
+*ngFor="let estado of estados | async "
+"
+, pois o async faz o subscribe e o unsubscribe p a gente
+automaticamente
+, pois o codigo abaixo pode resultar em memoryLeak
+		this.dropDownService.getEstadosBr()				
+			.subscribe(response =>{				
+				this.estados = response
+			})
+		
+
+

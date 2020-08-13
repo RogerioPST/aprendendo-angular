@@ -1,0 +1,12 @@
+<div *ngIf="showModal">
+	<div>
+		<h5>{{title}}</h5>
+	</div>
+	<div>
+		<p>{{msg}}</p>
+	</div>
+	<div>
+		<button (click)="onClose()">{{cancelTxt}}</button>
+		<button (click)="onConfirm()">{{okTxt}}</button>
+	</div>
+</div>

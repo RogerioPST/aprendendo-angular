@@ -1,0 +1,199 @@
+<p>data-form works!</p>
+<!--
+para fazer o bind e atualizar, com forms reativos, usamos o 
+formControlName ao inves do atributo name	
+-->
+
+<div style="display: flex;">
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+		<!-- <div
+		[ngClass]="aplicaCssErro('nome')"
+	> -->
+	<app-input-field formControlName="graduacao" 
+		id="graduacao" label="Graduação" 
+		[control]="formulario.get('graduacao')">		
+	</app-input-field>	
+	<div>	
+		<label for="nome">Nome</label>
+		<input type="text" placeholder="Nome" id="nome" 
+		formControlName="nome">
+	</div>		
+	<app-error-msg 
+		[control]="formulario.get('nome')"
+		label="Nome"				
+	>
+	</app-error-msg>
+	<div>
+		<label for="email">email</label>
+		<input type="email" placeholder="nome@email.com" 
+		id="email" formControlName="email">	
+	</div>	
+	<app-campo-control-erro 
+		[mostrarErro]="verificaValidTouched('email')" 
+		msgErro="email é obrigatorio">
+	</app-campo-control-erro>
+	<app-campo-control-erro 
+		[mostrarErro]="verificaEmailInvalido()" 
+		msgErro="Email é invalido">
+	</app-campo-control-erro>
+	<app-campo-control-erro 
+		[mostrarErro]="formulario.get('email').status === 'PENDING'" 
+		msgErro="Validando email...">
+	</app-campo-control-erro>
+	<app-campo-control-erro 
+		[mostrarErro]="formulario.get('email').status === 'VALID'" 
+		msgErro="email validado...">
+	</app-campo-control-erro>
+	<app-campo-control-erro 
+		[mostrarErro]="formulario.get('email').hasError('emailInvalido')" 
+		msgErro="email jah cadastrado">
+	</app-campo-control-erro>
+	<div>
+		<label for="confirmarEmail">confirmar email</label>
+		<input type="email" placeholder="nome@email.com" 
+		id="confirmarEmail" formControlName="confirmarEmail">	
+	</div>	
+	<app-campo-control-erro 
+		[mostrarErro]="formulario.get('confirmarEmail').hasError('equalsTo')" 
+		msgErro="E-mail não sao iguais">
+	</app-campo-control-erro>	
+	<div formGroupName="endereco" >
+	<!-- 
+			(blur)="consultaCEP()"
+		blur foi retirado p usar a parte reativa do formulario
+	-->	
+		<div>
+			<label for="cep">cep</label>
+			<input type="text" 
+			id="cep" formControlName="cep" 			
+			>
+			<!-- <button (click)="resetaDadosForm(formulario)">Reset CEP</button> -->
+		</div>
+		<app-campo-control-erro 
+			[mostrarErro]="verificaRequired('endereco.cep')" 
+			msgErro="CEP é obrigatorio">
+		</app-campo-control-erro>	
+		<app-campo-control-erro 
+			[mostrarErro]="formulario.get('endereco.cep').hasError('cepInvalido')" 
+			msgErro="CEP inválido">
+		</app-campo-control-erro>	
+		<div>
+			<label for="rua">rua</label>
+			<input type="text" 
+			id="rua" formControlName="rua"  readonly >
+		</div>
+		<app-campo-control-erro 
+			[mostrarErro]="verificaValidTouched('endereco.rua')" 
+			msgErro="Rua é obrigatorio">
+		</app-campo-control-erro>	
+		<div>
+			<label for="numero">numero</label>
+			<input type="text" 
+			id="numero" formControlName="numero"  >
+		</div>
+		<app-campo-control-erro 
+			[mostrarErro]="verificaValidTouched('endereco.numero')" 
+			msgErro="Número é obrigatorio">
+		</app-campo-control-erro>
+		<div>
+			<label for="complemento">complemento</label>
+			<input type="text" id="complemento" formControlName="complemento" > 			
+		</div>	
+	
+		<div>
+			<label for="bairro">bairro</label>
+			<input type="text" 
+			id="bairro" formControlName="bairro"  >
+		</div>
+		<app-campo-control-erro 
+			[mostrarErro]="verificaValidTouched('endereco.bairro')" 
+			msgErro="Bairro é obrigatorio">
+		</app-campo-control-erro>	
+		<div>
+			<label for="cidade">cidade</label>
+			<input type="text" 
+			id="cidade" formControlName="cidade"  >
+		</div>
+		<app-campo-control-erro 
+			[mostrarErro]="verificaValidTouched('endereco.cidade')" 
+			msgErro="cidade é obrigatorio">
+		</app-campo-control-erro>
+		<div>
+			<label for="estado">estado</label>
+			<select id="estado" formControlName="estado"  >
+				<!-- o async faz o subscribe e o unsubscribe p a gente
+automaticamente-->
+				<option  
+				[value]="estado.sigla"
+				*ngFor="let estado of estados | async ">{{estado.nome}}</option>
+				</select>
+		</div>
+		<app-campo-control-erro 
+			[mostrarErro]="verificaValidTouched('endereco.estado')" 
+			msgErro="estado é obrigatorio">
+		</app-campo-control-erro>
+		
+	</div>
+	<div>
+		<label for="cargo">cargo</label>
+		<select id="cargo" formControlName="cargo"  
+			[compareWith]="compararCargos"
+		>
+			<!-- o async faz o subscribe e o unsubscribe p a gente
+automaticamente-->
+			<option  
+			[ngValue]="cargo"
+			*ngFor="let cargo of cargos">{{cargo.desc}}</option>
+			</select>
+			<button type="button" (click)="setCargo()">Setar Cargo</button>			
+	</div>		
+	<div>
+		<label for="tecnologias">tecnologias</label>
+		<select multiple id="tecnologias" formControlName="tecnologias"  			
+		>
+			<!-- o async faz o subscribe e o unsubscribe p a gente
+automaticamente-->
+			<option  
+			[value]="tecnologia.nome"
+			*ngFor="let tecnologia of tecnologias">{{tecnologia.desc}}</option>
+			</select>
+			<button type="button" (click)="setTecnologias()">Setar Tecnologias</button>			
+	</div>		
+	<div>
+		<label for="newsletter">Newsletter</label>	
+		<div *ngFor="let item of newsletterOp">
+
+		<input type="radio" formControlName="newsletter" id="newsletter" [value]="item.valor">{{item.desc}}
+		</div>
+	</div>		
+	<div>
+		<label for="termos">termos</label>	
+		<input type="checkbox" formControlName="termos" id="termos">
+		Aceito os termos
+	</div>		
+	<app-campo-control-erro 
+		[mostrarErro]="verificaValidTouched('termos')" 
+		msgErro="aceite os termos ">
+	</app-campo-control-erro>
+	<div>
+		<label for="frameworks">frameworks</label>	
+		<div id="frameworks">
+			<div formArrayName="frameworks" 
+			*ngFor="let item of frameworks; let i = index">
+				<input type="checkbox" [formControlName]="i">
+				{{item}}
+			</div>
+		</div>
+	</div>		
+	<app-campo-control-erro 
+		[mostrarErro]="!formulario.get('frameworks').valid" 
+		msgErro="Selecione uma opção">
+	</app-campo-control-erro> 
+	<button type="submit" [disabled]="!formulario.valid">Submit</button>
+	<button type="submit" >Submit validando cada campo depois</button>
+	<button type="button" (click)="resetar()">Resetar</button>
+	
+</form>
+<app-form-debug [form]="formulario"></app-form-debug> 
+</div>
+

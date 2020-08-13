@@ -1,0 +1,9 @@
+<p>aluno-form works!</p>
+<form  action="">
+<p>Id: <input type="text" disabled name="id" [(ngModel)]="aluno.id"></p>
+<p>Nome: 
+	<input type="text" name="nome" [(ngModel)]="aluno.nome"
+		(input)="OnInput()"
+	></p>
+<p>Email: <input type="text" name="email" [(ngModel)]="aluno.email"></p>
+</form>

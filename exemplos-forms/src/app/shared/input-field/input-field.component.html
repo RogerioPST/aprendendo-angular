@@ -1,0 +1,13 @@
+<!-- <div [ngClass]="classeCss">	 -->
+<div>
+	<label [attr.for]="id">{{label}}</label>
+	<input [type]="type" [id]="id" 
+	[readonly]="!!isReadOnly"
+	[(ngModel)]="value"	
+	>
+</div>
+<app-error-msg 
+		[control]="control"
+		[label]="label"				
+>
+</app-error-msg>

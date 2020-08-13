@@ -1,0 +1,35 @@
+alterações p a versao 6:
+1. agora podemos iterar sobre os key/values de um objeto:
+  <li *ngFor="let prop of curso | keyvalue" >
+		
+      {{ prop.key }}: {{ prop.value }}
+    </li>
+
+
+2.qdo voltamos p a pag anterior, ele volta c o scroll na posicao
+onde deixamos, o q melhora a experiencia do user:
+arquivo: app.routing.module.ts
+      scrollPositionRestoration: 'enabled',
+
+3. qdo tiver algum caracter, tipo %, na url, por padrao, n 
+vai ser uma rota valida e o angular vai voltar p home. 
+mas agora, há a opcao, em q o angular pode verificar isso e 
+sanitizar a url, se for o caso: 
+arquivo: app.routing.module.ts
+malformedUriErrorHandler: (error: URIError, urlSerializer: UrlSerializer, url: string) => {
+        // console.log(error);
+        console.log(url);
+        return urlSerializer.parse('/url-invalida');
+      }
+
+4. qdo colocamos uma URL no navegador, o angular, verifica em 
+todos os arquivos de rota se bate alguma rota c a url.
+caso bata, ele seta a url e carrega o component.
+essa opção ja vai permitir setar a url antes:
+arquivo: app.routing.module.ts
+urlUpdateStrategy: 'eager', // 'deferred'
+
+5.
+encapsulation: ViewEncapsulation.ShadowDom
+
+6. suporte p versao 2.8 e 2.9 typescript

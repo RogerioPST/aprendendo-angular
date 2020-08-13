@@ -1,0 +1,9 @@
+<p>alunos works!</p>
+<ul>
+	<li *ngFor="let aluno of alunos">
+<!-- como estamos trabalhando c rotas filhas, precisamos
+passar apenas aluno.id no routerLink -->
+		<a [routerLink]="[aluno.id]">{{aluno.nome}}</a>
+	</li>
+</ul>
+<router-outlet></router-outlet>

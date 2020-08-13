@@ -1,0 +1,153 @@
+Quando se está trabalhando em um projeto grande, quando
+se cria o componente, já cria o seu modulo (ex: alunos.module.ts) 
+para ir colocando os components em seus declarations e já 
+se cria o modulo de routing relacionado (alunos.routing.module.ts).
+E quando criado o routing, coloca-lo no (alunos.module.ts) dentro
+de imports e dentro de providers, colocar o AlunosService p acessar
+o servidor.
+
+Para que se possa chamar tanto a rota de alunos, como de 
+alunos-detalhe, criar os alunos como filhos:
+"
+const alunosRoutes = [
+	{
+		path: 'alunos', component: AlunosComponent, children:[
+			{path: 'novo', component: AlunoFormComponent},
+			{path: ':id', component: AlunoDetalheComponent},
+			{path: ':id/editar', component: AlunoFormComponent},
+		]},
+]
+"
+e adicionar no html do alunos(pai) o <router-outlet></router-outlet>.
+
+
+Para carregamento lazy/ sob demanda, são tres passos:
+1. usar no app.routing.module.ts de onde estava sendo importado, no caso, no app.module.ts.
+"
+{path: 'cursos', loadChildren: 'app/cursos/cursos.module#CursosModule'}
+"
+2.retirar o CursosModule do app.module.routing.ts, sendo q nenhum
+outro lugar da aplicacao pode importar o CursosModule.  
+3. no cursos.routing.module.ts, mudar o path 'cursos' p '', pois o 
+path 'cursos' ja esta no loadChildren.
+
+__
+
+Vamos criar um outro modulo de funcionalidade chamado professores
+com os seguintes passos:
+1. cmd: 'ng g c professores'
+1.1. o cmd acima vai criar o component 'ProfessoresComponent' e 
+ja vai adiciona-lo no app.module.ts
+2. assim q criar o componente, como acima, ja cria o modulo dele 
+'professores.module'
+2.1. assim q cria o modulo, ja coloca na declarations o 
+componente recem criado e no import o 'CommonModule'
+3. remove do app.module o 'ProfessoresComponent' e no import, 
+coloca o 'ProfessoresModule'.
+4. com o modulo criado, podemos criar os componentes filhos com:
+4.1. cmd: 'ng g c professores/professor-form'
+4.2. automaticamente deve ser adicionado o component 
+'ProfessorFormComponent' no ProfessoresModule
+4.3. cmd: 'ng g c professores/professor-detalhe'
+4.4. automaticamente deve ser adicionado o component 
+'ProfessorDetalheComponent' no ProfessoresModule
+5. agora, criar o modulo de roteamento 
+'professores.routing.module.ts'
+5.1. colocar o codigo nesse routing module:
+'
+@NgModule({
+	imports: [RouterModule.forChild(alunosRoutes)],
+	exports: [RouterModule]
+
+})
+'
+5.2. colocar o 'ProfessoresRoutingModule' no import do 
+professores.module.ts
+5.3. criar as rotas como abaixo ou (como as do ALunoRoutingModule):
+'
+const ProfessoresRoutes = [
+	{path: 'professores', component: ProfessoresComponent},
+	{path: 'professores/novo', component: ProfessorFormComponent},
+	{path: 'professores/:id', component: ProfessorDetalheComponent},
+	{path: 'professores/:id/editar', component: ProfessorFormComponent},		
+]
+'
+6.1. criar o serviço dos professores com cmd:
+'ng g s professores/professores'
+6.2. adicionar o 'ProfessoresService' nos providers do 
+professor.module.ts, o q vai permitir o q tiver dentro de 
+'declarations' ter acesso a esse serviço.
+6.3. quem quiser usar esse service, injetar como dependencia no 
+seu construtor, como ProfessoresComponent
+6.4. seguir o q foi feito no ProfessoresComponent, no ProfessoresService
+e ProfessoresDetalhe 
+
+___
+guarda de rotas:
+eh um tipo de serviço especial q implementa um determinado metodo
+q o angular sabe q qdo essa classe implementa esse metodo, ele pode
+ser usado como guarda de rotas (AuthGuard)!
+1. criar c cmd: 'ng g s guards/auth-guard' e adicionar no app.module.ts
+
+obs: qdo for fazer um projeto maior, pode ser criado um guard 
+generico e um p cada modulo do sistema.
+-> canActivateChild: //como o ALunosGuard ja esta c provider no app.module, n precisa fazer 
+//mais nd, mas caso quisessemos, poderiamos mover o arquivo p a pasta
+//alunos, declarar como provider no alunos.module e ficar td 
+//somente dentro do escopo da pasta alunos.
+
+-> canDeactivate: dois possiveis usos:
+1. qdo vc esta preenchendo um form extenso e sem querer o user 
+clica onde n deveria e acaba mudando a rota <-> eh legal 
+perguntar p user se ele realmente quer sair daquela rota
+2. qdo se faz uma requisicao p o servidor e dah um erro/exception
+no servidor. caso ja tenha mudado a rota/a pagina, fica mais
+complicado de reverter a situacao ou entao dar a chance p user
+fazer aquela requisicao novamente/apertar submit de novo, por ex.
+-> passos: criar arquivo 'alunos.deactivate.guard.ts'
+
+-> caso queira criar uma interface generica p ser usada por outros 
+componentes, criar a interface IFormCanDeactivate e fazer o 
+AlunoFormComponent implementar essa interface, implementando o 
+metodo.
+
+-> cursoAngular 68 - outro guarda de rotas: Resolve -> responsavel por carregar a rota 
+antes dela ser ativada. No caso, os detalhes do aluno so sao
+carregados depois q chamo o alunosService e vamos mudar isso
+atraves da guarda de rotas Resolve. Passos:
+1. criar o AlunoDetalheResolver implementando o metodo resolve 
+com o q desejamos.
+2. criar o modelo Aluno.ts
+3. informar a rota AlunoDetalheComponent q estamos resolvendo a 
+rota antes de carregar o component:
+'
+{path: ':id', component: AlunoDetalheComponent,
+			resolve:{aluno: AlunoDetalheResolver}
+},
+'
+4. declarar como provider no alunos.module.ts
+
+-> outro guarda de rotas: canLoad - como n carregar o modulo sem
+permissao. o canLoad precisa ser usado em conjunto com o 
+canActivate, pois existem falhas de segurança qdo se usa o lazy
+loading.
+___
+
+-> definindo rota padrao e wildcard p retornar pag nao encontrada. 
+passos:
+1. criar component "ng g c pagina-nao-encontrada'
+1.1. c isso, o angular deve colocar 'PaginaNaoEncontradaComponent' 
+como declarations em app.module.ts.
+2. colocar a linha em app.routing.module.ts:
+'
+{path: '**',component: PaginaNaoEncontradaComponent, canActivate:[AuthGuard]},
+'
+
+__
+Curso Angular #71: Estilo de url: HTML5 ou usando #:
+para isso, acrescentar em app.routing.module.ts na linha o 
+seguinte {useHash: true} como abaixo:
+'
+imports: [RouterModule.forRoot(appRoutes, {useHash: true})],
+'
+

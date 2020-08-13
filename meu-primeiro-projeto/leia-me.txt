@@ -1,0 +1,28 @@
+--para gerar/criar um modulo:
+-'ng g m cursos'
+--para criar diretivas de atributo ou estruturais, sendo
+q a de atributo e ng-style ou ng-class e estrutural eh ngfor,
+ngIf, ngswitch etc:
+-'ng g d nome-diretiva'
+--para criar componentes:
+-'ng g c cursos/curso-detalhe'
+--para criar servicos p enviar e receber info do servidor/backend, 
+fornecer logica de negocio e evitar codigo duplicado e classes 
+utilitarias (com metodos de formatarDado, fazerBuscaArray):
+-'ng g s cursos/cursos'
+
+--para testes, executar os comandos:
+-'ng test' p ver se os testes unitarios passam, inclusive 
+em outros browsers com a lib do karma!
+-'ng e2e --port=4201' p ver se os testes de integração passam.
+
+--para gerar o build de desenvolvimento, fazer:
+-'ng build --dev' ou 'ng build' 
+
+--para gerar o build de produção, fazer:
+-'ng build --prod'  
+
+--apos gerar o build de des ou prd, vai ser gerada a pasta 'dist'
+e dentro dela o nome do projeto. entrar nessa pasta, no nosso 
+caso 'meu-primeiro-projeto' e rodar o comando 'http-server' p 
+ver o projeto servido no browser na porta 8080.

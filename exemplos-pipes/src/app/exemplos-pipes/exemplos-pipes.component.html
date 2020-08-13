@@ -1,0 +1,38 @@
+<p>exemplos-pipes works!</p>
+<p>Titulo: {{livro.titulo | uppercase | lowercase | meupipeCamelCase}}</p>
+<p>rating: {{livro.rating | number:'1.1-2'}}</p>
+<p>numeroPaginas: {{livro.numeroPaginas }}</p>
+<p>preco: {{livro.preco | currency:'BRL':true}}</p>
+<p>Data: {{livro.dataLancamento  | date:'dd-MM-yyyy' }}</p>
+<p>url: {{livro.url}}</p>
+<p>Livro: {{livro | json}}</p>
+
+
+<h5>exemplo de pipe/filtro PURO e IMPURO</h5>
+Filtro: <input type="text" [(ngModel)]="filtro"><br>
+<input type="text" #novoValor>
+<button
+	(click)="addCurso(novoValor.value)"
+>Add Curso</button>
+<h5>Pipe Puro - n deve ser usado em producao</h5>
+<ul>
+	<li *ngFor="let liv of livros | meufiltroArray:filtro">
+		{{liv  }}
+	</li>
+</ul>
+<h5>Pipe ImPuro - q tb n deve ser usado em producao</h5>
+<ul>
+	<li *ngFor="let liv of livros | meufiltroArrayImpuro:filtro">
+		{{liv  }}
+	</li>
+</ul>
+<h5>Maneira correta q deve ser usada em producao - ao se usar filtros nos projetos</h5>
+<ul>
+	<li *ngFor="let liv of obterLivrosFiltrados()">
+		{{liv  }}
+	</li>
+</ul>
+<h5>obtendo o resultado assincrono de uma promise com o pipe async, por ex</h5>
+<p>{{ valorAsync | async}}</p>
+<h5>obtendo o resultado assincrono do rxjs com o pipe async, por ex</h5>
+<p>{{ valorAsync2 | async}}</p>

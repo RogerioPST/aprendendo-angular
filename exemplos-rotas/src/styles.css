@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+	background-color: #CCCCCC;
+}
+
+li{
+	list-style: none;
+}
+
+ul{
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.ativa{	
+	background-color: blueviolet;
+	padding: 10px;
+}

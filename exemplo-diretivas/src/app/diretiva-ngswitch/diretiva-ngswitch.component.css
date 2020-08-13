@@ -1,0 +1,8 @@
+.active{
+	font-weight: bold;
+}
+
+.flexivel{
+	display: flex;
+	justify-content: space-between;
+}

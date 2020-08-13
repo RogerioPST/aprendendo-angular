@@ -1,0 +1,45 @@
+<p>cursos-lista works!</p>
+<h1>Cursos</h1>
+<button [routerLink]="['novo']">
+Novo Curso
+</button>
+<button (click)="atualizar()">
+Atualizar
+</button>
+
+<table *ngIf="cursos$ | async as cursos; else loading">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>Curso</th>
+			<th>Ação</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let curso of cursos" >
+			<td>{{curso.id}}</td>
+			<td>{{curso.nome}}</td>
+			<td>
+				<button (click)="onEdit(curso.id)">Atualizar</button>						
+				<button (click)="onDelete(curso)">Remover</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<ng-template #loading>
+	<div *ngIf="error$ | async; else loadingNoError">
+		<span>Erro ao carregar cursos</span>
+	</div>		
+	<ng-template #loadingNoError>
+		<span>	Carregando os cursos...</span>		
+	</ng-template>
+</ng-template>
+
+<div *ngIf="showDeleteModal">	
+	<div>
+		<p>Deseja remover?</p>
+		<button (click)="onConfirmDelete()">Yes</button>
+		<button (click)="onCancelDelete()">No</button>
+	</div>	
+</div>

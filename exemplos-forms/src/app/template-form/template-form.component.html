@@ -1,0 +1,124 @@
+<p>template-form works!</p>
+<!--dizemos ao angular q queremos ajuda
+dele p gerenciar.
+com a diretiva ngModel em cada campo e o atributo nome em
+cada campo, fazemos o binding
+do campo com o formulario: exemplo: [(ngModel)]="usuario.nome"
+
+as diretivas abaixo servem p dizer q o campo eh obrigatorio e 
+regex de email e fazer a validação p mostrar msg:
+#email="ngModel"
+	<div *ngIf="!email.valid && email.touched">
+		Email é inválido
+	</div>	
+-->
+<div style="display: flex;">
+<form #formulario="ngForm" (ngSubmit)="onSubmit(formulario)">
+	<div>
+	<!-- <div
+		[ngClass]="aplicaCssErro(nome)"
+	> -->
+		<label for="nome">Nome</label>
+		<input type="text" placeholder="Nome" id="nome" 
+		name="nome" [(ngModel)]="usuario.nome" required 
+		#nome="ngModel" #nomeDaClasse>
+	</div>
+	<div>
+		{{nomeDaClasse.className}}
+	</div>
+	<app-campo-control-erro 
+		[mostrarErro]="verificaValidTouched(nome)" 
+		msgErro="Nome é obrigatorio">
+	</app-campo-control-erro>
+	<div>
+		<label for="email">email</label>
+		<input type="email" placeholder="nome@email.com" 
+		id="email" name="email" [(ngModel)]="usuario.email" 
+		required email #email="ngModel">
+		<!-- o email sem o # acima eh uma diretiva p validar se eh um email
+		sem precisar usar o pattern c regex-->
+	</div>
+	<app-campo-control-erro 
+		[mostrarErro]="verificaValidTouched(email)" 
+		msgErro="Email é inválido">
+	</app-campo-control-erro>	
+<!-- diretiva ngModelGroup="endereco" vai fazer com que os 
+	campos de dentro fiquem dentro de endereco
+-->
+	<div ngModelGroup="endereco">
+	<div>
+		<label for="cep">cep</label>
+		<input type="text" 
+		id="cep" name="cep" ngModel
+		required #cep="ngModel"
+		(blur)="consultaCEP($event.target.value, formulario)"
+		>
+		<button (click)="resetaDadosForm(formulario)">Reset CEP</button>
+	</div>
+	<app-campo-control-erro 
+		[mostrarErro]="verificaValidTouched(cep)" 
+		msgErro="CEP é obrigatorio">
+	</app-campo-control-erro>	
+	<div>
+		<label for="rua">rua</label>
+		<input type="text" 
+		id="rua" name="rua" ngModel
+		required #rua="ngModel" readonly >
+	</div>
+	<app-campo-control-erro 
+		[mostrarErro]="verificaValidTouched(rua)" 
+		msgErro="Rua é obrigatorio">
+	</app-campo-control-erro>	
+	<div>
+		<label for="numero">numero</label>
+		<input type="text" 
+		id="numero" name="numero" ngModel
+		required  #numero="ngModel" >
+	</div>
+	<app-campo-control-erro 
+		[mostrarErro]="verificaValidTouched(numero)" 
+		msgErro="Número é obrigatorio">
+	</app-campo-control-erro>
+	<div>
+		<label for="complemento">complemento</label>
+		<input type="text" 
+		id="complemento" name="complemento" ngModel>
+	</div>	
+
+	<div>
+		<label for="bairro">bairro</label>
+		<input type="text" 
+		id="bairro" name="bairro" ngModel
+		required  #bairro="ngModel" >
+	</div>
+	<app-campo-control-erro 
+		[mostrarErro]="verificaValidTouched(bairro)" 
+		msgErro="Bairro é obrigatorio">
+	</app-campo-control-erro>	
+	<div>
+		<label for="cidade">cidade</label>
+		<input type="text" 
+		id="cidade" name="cidade" ngModel
+		required  #cidade="ngModel" >
+	</div>
+	<app-campo-control-erro 
+		[mostrarErro]="verificaValidTouched(cidade)" 
+		msgErro="cidade é obrigatorio">
+	</app-campo-control-erro>
+	<div>
+		<label for="estado">estado</label>
+		<input type="text" 
+		id="estado" name="estado" ngModel
+		required  #estado="ngModel" >
+	</div>
+	<app-campo-control-erro 
+		[mostrarErro]="verificaValidTouched(estado)" 
+		msgErro="estado é obrigatorio">
+	</app-campo-control-erro>
+</div>
+	<button type="submit" [disabled]="!formulario.valid">Submit</button>
+	
+</form>
+<app-form-debug [form]="formulario"></app-form-debug>
+</div>
+

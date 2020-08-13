@@ -1,0 +1,18 @@
+<p>diretiva-ngfor works!</p>
+
+<ul>
+	<li *ngFor="let curso of cursos, let i = index ">
+		{{i}} - {{curso}}
+	</li>
+</ul>
+<div>
+	<!--A origem da tag <template> é a especificação padrão Web Components que está sendo implementada nos browsers. http://webcomponents.org/articles/introduction-to-template-element/-->
+	<h5>Removendo o * do ngFor e usando o ng-template, que é o que o angular faz por baixo dos panos</h5>
+	<ul>
+		<ng-template ngFor [ngForOf]="cursos" let-curso let-i="index">
+			<li>
+				{{i}} - {{curso}}
+			</li>
+		</ng-template>
+	</ul>
+</div>

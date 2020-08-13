@@ -1,0 +1,8 @@
+<p>professores works!</p>
+<ul>
+	<li *ngFor="let professor of professores">
+<!-- como nao estamos trabalhando c rotas filhas, precisamos
+passar '/professor' e  professor.id no routerLink -->
+		<a [routerLink]="['/professores', professor.id]">{{professor.nome}}</a>
+	</li>
+</ul>

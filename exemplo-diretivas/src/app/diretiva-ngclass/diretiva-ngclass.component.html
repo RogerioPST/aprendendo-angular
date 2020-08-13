@@ -1,0 +1,22 @@
+<p>diretiva-ngclass works!</p>
+
+<div
+	[class.corAzul]="!meuFavorito"
+	[class.corVermelho]="meuFavorito"
+	(click)="onClick()"
+>
+{{meuFavorito}}
+	<p>esse texto fica com a cor de fonte e fundo de acordo com a classe</p>
+</div>
+<h5>Mesmo código acima, mas usando a diretiva ngClass</h5>
+<div
+[ngClass]="{
+	'corAzul':!meuFavorito,
+	'corVermelho':meuFavorito
+}"	
+	(click)="onClick()"
+>
+{{meuFavorito}}
+	<p>esse texto fica com a cor de fonte e fundo de acordo com a classe</p>
+</div>
+

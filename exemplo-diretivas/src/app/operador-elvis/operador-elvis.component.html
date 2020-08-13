@@ -1,0 +1,6 @@
+<p>operador-elvis works!</p>
+<p>Descrição: {{tarefa.desc}}</p>
+<!-- <p>Responsável: {{tarefa.responsavel.nome}}</p> -->
+<p>Responsável: {{tarefa.responsavel != null ? tarefa.responsavel.nome : ''}}</p>
+<h5>Usando o operador Elvis, ou seja,o ponto de interrogação/?, que faz a logica parecida com o codigo acima</h5>
+<p>Responsável: {{ tarefa.responsavel?.usuario?.nome}}</p>

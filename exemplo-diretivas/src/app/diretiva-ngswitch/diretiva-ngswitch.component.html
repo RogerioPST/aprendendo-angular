@@ -1,0 +1,53 @@
+<p>diretiva-ngswitch works!</p>
+
+<nav>
+	<div class="flexivel">
+		<a href="#" 
+			[class.active]="aba =='home'"
+			(click)="aba='home'"
+		>Home</a>
+		<a href="#" [class.active]="aba =='mapa'"
+		(click)="aba='mapa'"
+		>Mapa</a>
+		<a href="#" [class.active]="aba =='lista'"
+		(click)="aba='lista'"
+		>Lista</a>		
+		<p>aba ativa: {{aba}}</p>
+	</div>
+</nav>
+<nav>
+	<div class="flexivel">
+		<a href="#" 
+			[class.active]="abaFuncao =='home'"
+			(click)="mudaValorDaAbaFuncao('home')"
+		>Home</a>
+		<a href="#" [class.active]="abaFuncao =='mapa'"
+		(click)="mudaValorDaAbaFuncao('mapa')"
+		>Mapa</a>
+		<a href="#" [class.active]="abaFuncao =='lista'"
+		(click)="mudaValorDaAbaFuncao('lista')"
+		>Lista</a>		
+		<p>abaFuncao ativa: {{abaFuncao}}</p>
+	</div>
+</nav>
+<div [ngSwitch]="aba">
+	<p *ngSwitchCase="'home'">Modo home ativado</p>
+	<p *ngSwitchCase="'mapa'">Modo mapa ativado</p>
+	<p *ngSwitchCase="'lista'">Modo lista ativado</p>	
+	<p *ngSwitchDefault>Modo default ativado</p>	
+</div>
+<div>
+	<!--A origem da tag <template> é a especificação padrão Web Components que está sendo implementada nos browsers. http://webcomponents.org/articles/introduction-to-template-element/-->
+	<h5>Removendo o * do ngSwitch e usando ng-template, que é o que o angular faz por baixo dos panos</h5>
+	<div [ngSwitch]="aba">
+		<ng-template [ngSwitchCase]="'home'" ngSwitchDefault>
+			<p>Home ativado</p>
+		</ng-template>
+		<ng-template [ngSwitchCase]="'mapa'">
+			<p>Mapa ativado</p>
+		</ng-template>
+		<ng-template [ngSwitchCase]="'lista'">
+			<p>Lista ativado</p>
+		</ng-template>
+	</div>
+</div>

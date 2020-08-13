@@ -1,0 +1,15 @@
+<div>
+	<input type="file" (change)="aoEscolher($event)" multiple>
+	<br />
+	<label for="" id="customFileLabel">Selecionar arquivos</label>
+	<div>
+		<div style="background-color: black;"
+			[style.width]="progress + '%'"
+		>_</div>
+		<p>{{progress}}%</p>
+	</div>
+</div>
+<div><button (click)="onUpload()" 
+	[disabled]="!files">Upload
+
+</button></div>

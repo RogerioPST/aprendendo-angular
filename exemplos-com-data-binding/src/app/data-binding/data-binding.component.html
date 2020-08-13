@@ -1,0 +1,123 @@
+<p>data-binding works!</p>
+<section>
+	<article>
+		<h3>Interpolação/Interpolation</h3>
+		<p>String renderizada com interpolação: {{ url }}</p>
+		<p>Resultado de 1 + 1 : {{ 1+1 }}</p>
+		<p>Resultado de 1 + 1 não é: {{ 1+1+ getValor() }}</p>
+		<p>Curso de angular: {{ cursoAngular && getCurtirCurso()}}</p>
+	</article>
+	<article>
+		<h3>Property Binding</h3>
+		<img src="{{urlImagem}}" alt="">
+		<img [src]="urlImagem" alt="">
+<!-- a linha de cima é um açucar sintatico da linha de baixo-->
+		<img bind-src="urlImagem" alt="">
+	</article>
+	
+	
+	<article>
+		<h3>Class e Style Binding</h3>	
+		<div>
+			Selecione uma classe:
+		</div>
+		<select #classe (change)="0">
+			<option value="alert-success">Sucesso</option>
+			<option value="alert-info">infoo</option>
+			<option value="alert-warn">warning</option>
+			<option value="alert-danger">danger</option>
+		</select>
+		<br /><br />
+		<!-- acrescentando o class binding-->		
+		<div 
+			[class.alert-success]="classe.value == 'alert-success'"
+		>sucesso</div>
+		<div 
+			[class.alert-info]="classe.value == 'alert-info'"
+		>info</div>
+		<div 
+			[class.alert-warn]="classe.value == 'alert-warn'"
+		>warning</div>
+		<div 
+			[class.alert-danger]="classe.value == 'alert-danger'"
+		>danger</div>		
+		<!-- outra forma de acrescentar a classe-->
+		<div class="{{classe.value}}">
+			texto colorido conforme valor do combo-box
+		</div>
+		<!-- usando style binding -->
+		<div class="alert-danger"
+			[style.display]="classe.value == 'alert-danger' ? 'block' : 'none'"
+		>
+			esse texto somente aparece em caso de erro/escolhido danger
+		</div>
+	</article>	
+	<article>
+		<h3>
+			Event Binding
+		</h3>
+		<div>
+			<button (click)="metodoClicar()">Clique</button>
+<!--por baixo dos panos o angular transforma o de baixo no de cima-->
+			<button on-click="metodoClicar()">
+				Clique
+			</button>
+			<input type="text" name="" id="" 
+				(keyup)="metodoDigitar($event)"
+				(keyup.enter)="salvarValor($event.target.value)"
+				(blur)="salvarValor(campoInput.value)"
+				#campoInput
+			>
+			<p>valor atual: {{valorQueFoiDigitado}}</p>
+			<p>valor salvo: {{valorSalvo}}</p>
+			<br>
+			<span
+				(mouseover)="onMouseOverOut()"
+				(mouseout)="onMouseOverOut()"
+				[class.highlight] = "isMouseOver"
+			>Passe o mouse sobre mim</span>
+		</div>
+	</article>
+	<article>
+		<h3>Two way data binding</h3>
+		<div>
+			<p>1ª forma
+			<input type="text" 
+				[value]="nome"
+				(input)="nome = $event.target.value"
+			/></p>
+<!--ngModel é a representacao de uma entidade, q pode ser
+campo simples string ou um objeto-->			
+			<p>2ª forma
+			<input type="text" 
+			[(ngModel)]="nome"
+			/></p>
+			<p>3ª forma
+			<input type="text" 
+			bindon-ngModel="nome"
+			/></p>
+			<p>Você digitou: {{nome}}</p>
+		</div>
+		<div>
+			<p>Informações do objeto pessoa</p>
+			<p>
+			<input type="text" [(ngModel)]="pessoa.nome">
+			<input type="text" [(ngModel)]="pessoa.idade">
+		</p>
+		<p>Meu nome é {{pessoa.nome}} e tenho {{pessoa.idade}} anos de idade</p>
+		</div>
+	</article>
+	<article>
+		<h3>Input/Output Properties</h3>
+		<input type="text"
+			[(ngModel)]="nomeDoCurso"
+		>
+		<app-input-property [nomeCurso]="nomeDoCurso"></app-input-property>
+		<app-output-property 
+			valor="10"
+			(mudouValor)="onMudouValor($event)"
+		>
+		</app-output-property>
+		<app-ciclo-de-vida></app-ciclo-de-vida>
+	</article>
+</section>
