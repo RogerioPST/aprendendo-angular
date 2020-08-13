@@ -33,6 +33,21 @@ export class UploadFileComponent implements OnInit {
 		this.progress = 0
 	}
 
+	onDownloadExcel(){
+		this.uploadService.download(environment.BASE_URL + '/downloadExcel')
+			.subscribe((res : any) => {
+				this.uploadService.handleFile(res, 'report-download.xlsx')
+
+			})
+	}
+	onDownloadPDF(){
+		this.uploadService.download(environment.BASE_URL + '/downloadPDF')
+			.subscribe((res : any) => {
+				this.uploadService.handleFile(res, 'report-download.pdf')
+
+			})
+	}
+
 	onUpload(){
 		if (this.files && this.files.size > 0){
 			this.uploadService.upload(this.files, environment.BASE_URL + '/upload')

@@ -22,4 +22,47 @@ export class UploadFileService {
 		} )
 		
 	}
+	download(url: string){
+		return this.http.get(url, {
+			responseType: 'blob' as 'json'			
+		})
+	}
+
+	handleFile(res: any, fileName: string){
+		console.log(res)
+				const file = new Blob([res], {
+					type: res.type
+				})
+
+				//para IE
+				if (window.navigator && window.navigator.msSaveOrOpenBlob){
+					window.navigator.msSaveOrOpenBlob(file)
+					return
+				}
+				//fim IE
+				//para Firefox
+
+				//fim firefox
+				const blob = window.URL.createObjectURL(file)
+
+				const link = document.createElement('a')
+				link.href = blob
+				link.download = fileName
+				link.click()
+				//para versoes antigas do Firefox, o link.click() n funciona, assim como o revokeObject
+				/* link.dispatchEvent(new MouseEvent('click', {
+					bubbles: true, 
+					cancelable: true, 
+					view: window
+				}))	 
+				setTimeout(() =>{
+					window.URL.revokeObjectURL(blob)
+				link.remove()
+				}, 100)
+				*/
+				//fim firefox
+
+				window.URL.revokeObjectURL(blob)
+				link.remove()
+	}
 }

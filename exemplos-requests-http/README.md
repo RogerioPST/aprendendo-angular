@@ -302,5 +302,27 @@ onUpload(){
 	}}
 ```
 </li>
+<li>para realizar o download de arquivos:
 
+```javascript
+handleFile(res: any, fileName: string){
+	const file = new Blob([res], {
+		type: res.type
+	})								
+	const blob = window.URL.createObjectURL(file)
+	const link = document.createElement('a')
+	link.href = blob
+	link.download = fileName
+	link.click()				
+	window.URL.revokeObjectURL(blob)
+	link.remove()
+}
+
+onDownloadExcel(){
+	this.uploadService.download(environment.BASE_URL + '/downloadExcel')
+		.subscribe((res : any) => {
+			this.uploadService.handleFile(res, 'report-download.xlsx')
+		})}
+```
+</li>
 </ol>

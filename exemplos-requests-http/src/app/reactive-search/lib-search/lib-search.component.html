@@ -1,0 +1,24 @@
+<div><input type="text" 
+		[formControl]="queryField"
+	>
+	<button (click)="OnSearch()">
+		Pesquisar
+	</button>
+	<div>
+		<h3>Total de {{total}} resultados</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Versão</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let result of results$ | async">
+					<td>{{result.name}}</td>
+					<td>{{result.version}}</td>					
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
