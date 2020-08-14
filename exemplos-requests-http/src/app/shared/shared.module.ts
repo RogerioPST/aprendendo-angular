@@ -14,6 +14,6 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 //informamos p o angular q o componente abaixo vai ser 
 //instanciado	em tempo de execução, ou seja, n vai ser usado 
 //dentro de um template ou em um roteamento por exemplo
-	entryComponents: [AlertModalComponent, ConfirmModalComponent]
+	//entryComponents: [AlertModalComponent, ConfirmModalComponent]
 })
 export class SharedModule { }

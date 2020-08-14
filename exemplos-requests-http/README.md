@@ -325,4 +325,47 @@ onDownloadExcel(){
 		})}
 ```
 </li>
+<li>para realizar pesquisa reativa:
+
+```javascript
+readonly FIELDS = 'name,description,version,homepage'  
+ngOnInit(): void {
+	this.results$ = this.queryField.valueChanges
+		.pipe(
+			map(v => v.trim()), //mapeia e remove espaços
+			filter(v => v.length > 1), //filtra qtd de caracteres > 1
+			debounceTime(200), //retarda a chamada em 200 ms
+			distinctUntilChanged(), //soh busca, se valor <> do anterior
+			//tap(value => console.log(value)),
+			switchMap(value => this.http.get(this.SEARCH_URL, {
+				params: {
+					search: value, 
+					fields: this.FIELDS
+				}
+			})), 
+			tap((res: any) => this.total = res.total),
+			map((res: any) => res.results)
+		)
+}
+```
+</li>
+<li>para colocar parametros dinamicos de query parameters:
+
+```javascript
+//usar assim ou paramsDinamico
+const params = {
+	search: value,
+	fields
+}				
+
+let paramsDinamico = new HttpParams()
+paramsDinamico = paramsDinamico.set('search', value)
+paramsDinamico = paramsDinamico.set('fields', fields)
+
+this.results$ = this.http
+.get(this.SEARCH_URL, {params: paramsDinamico})
+	// a linha abaixo equivale a linha de cima
+	//.get(this.SEARCH_URL + `?fields=${fields}&search=${value}`)
+```
+</li>
 </ol>
