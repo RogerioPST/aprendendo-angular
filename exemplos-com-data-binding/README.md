@@ -1,27 +1,41 @@
-# ExemplosComDataBinding
+# Exemplos com Tipos de Data Binding com Angular
+- [x] - Anotações
+- [ ] - [olhar as anotações sobre <b>MÓDULOS</b> na pasta modulos](https://github.com/RogerioPST/aprendendo-angular/blob/master/meu-primeiro-projeto/modulos/README.MD)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
 
-## Development server
+## Anotações:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### INTERPOLAÇÃO:
+<ol>
+<li>pode usar p contas, operações lógicas:
 
-## Code scaffolding
+```javascript
+<p>String renderizada com interpolação (quem também é uma forma de property binding): {{ url }}</p>
+<p>Resultado de 1 + 1 : {{ 1+1 }}</p>
+<p>Resultado de 1 + 1 não é: {{ 1+1+ getValor() }}</p>
+<p>Curso de angular: {{ cursoAngular && getCurtirCurso()}}</p>
+<img src="{{urlImagem}}" alt="">
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+url: string = 'www.google.com'
+cursoAngular: boolean = true
+getCurtirCurso() : boolean{ return true }
+getValor() : number{ return 1 }
+urlImagem : string = 'https://images.unsplash.com/photo-1588615419957-bf66d53c6b49?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=60'
+```
+</li>
+</ol>
 
-## Build
+### PROPERTY BINDING
+<ol>
+<li>é o valor do componente para o template. há as duas formas de property binding:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+```javascript
+<img [src]="urlImagem">
+<!-- a linha de cima é um açucar sintatico da linha de baixo-->
+<img bind-src="urlImagem">
+```
+</li>
+<li>quando não existe uma propriedade no elemento, usa-se <b>[attr.colspan]</b></li>
+</ol>
 
-## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
