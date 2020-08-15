@@ -1,6 +1,6 @@
 # Exemplos com Tipos de Data Binding com Angular
 - [x] - Anotações
-- [ ] - [olhar as anotações sobre <b>MÓDULOS</b> na pasta modulos](https://github.com/RogerioPST/aprendendo-angular/blob/master/meu-primeiro-projeto/modulos/README.MD)
+- [ ] - [olhar as anotações sobre <b>MÓDULOS</b>](https://github.com/RogerioPST/aprendendo-angular/blob/master/meu-primeiro-projeto/modulos/README.MD)
 
 
 ## Anotações:
@@ -82,7 +82,7 @@ urlImagem : string = 'https://images.unsplash.com/photo-1588615419957-bf66d53c6b
 ```javascript
 <div class="alert-danger" [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">essa div somente aparece em caso de erro/escolhido danger</div>
 ```
-<li>
+</li>
 </ol>
 
 ### EVENT BINDING
@@ -116,6 +116,5 @@ onMudouValor(evento){console.log(evento);console.log(evento.novoValor);}
 <p>valor salvo: {{valorSalvo}}</p>
 <span (mouseover)="onMouseOverOut()" (mouseout)="onMouseOverOut()" [class.highlight] = "isMouseOver" >Passe o mouse sobre mim</span></div>
 ```
-<li>
+</li>
 </ol>
-
