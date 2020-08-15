@@ -13,9 +13,11 @@ export class DataBindingComponent implements OnInit {
 
 	url: string = 'www.google.com'
 	cursoAngular: boolean = true
+	
 	valorQueFoiDigitado: string ='valor inicial'
 	valorSalvo : string 
 	isMouseOver: boolean = false
+	
 	nome: string = 'Rogerio'
 	pessoa : any ={
 		nome: "Roger",

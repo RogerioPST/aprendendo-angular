@@ -42,11 +42,9 @@ urlImagem : string = 'https://images.unsplash.com/photo-1588615419957-bf66d53c6b
 
 ### CLASS BINDING
 <ol>
-<li>
-	<ul>
-	<li>classe eh variavel local de template</li>
-	<li>classe eh variavel local de template</li>
-	</ul>
+<li>tambem é uma forma de property binding, no caso, PROPERTY BINDING DE CLASSE.
+</li>
+<li>classe eh variavel local de template e para mudar o seu valor, necessita do event binding do (change):
 
 ```javascript
 
@@ -62,16 +60,62 @@ urlImagem : string = 'https://images.unsplash.com/photo-1588615419957-bf66d53c6b
 	<option value="alert-warn">warning</option>
 	<option value="alert-danger">danger</option>
 </select>
-true ou false: {{ classe.value == 'alert-success' }}
-<!-- acrescentando o class binding-->		
+```
+</li>
+<li>acrescentando o class binding e só mostra a class, se a operação lógica  {{ classe.value == 'alert-success' }} resultar em true:
+
+```javascript
 <div [class.alert-success]="classe.value == 'alert-success'">sucesso</div>
 <div [class.alert-info]="classe.value == 'alert-info'">info</div>
 <div [class.alert-warn]="classe.value == 'alert-warn'">warning</div>
 <div [class.alert-danger]="classe.value == 'alert-danger'">danger</div>		
-<!-- outra forma de acrescentar a classe-->
+<!-- como a interpolação é uma forma de property binding, outra forma de acrescentar a classe é via interpolação-->
 <div class="{{classe.value}}">texto colorido conforme valor do combo-box</div>
 ``` 
 </li>
 </ol>
 
+### STYLE BINDING
+<ol>
+<li>property binding com estilo de classe:
+
+```javascript
+<div class="alert-danger" [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">essa div somente aparece em caso de erro/escolhido danger</div>
+```
+<li>
+</ol>
+
+### EVENT BINDING
+<ol>
+<li>property binding com estilo de classe:
+
+```javascript
+//css
+.highlight{
+	cursor: pointer;
+	font-weight: bold;
+	background-color: blueviolet;}
+//js
+valorQueFoiDigitado: string ='valor inicial'
+valorSalvo : string 
+isMouseOver: boolean = false
+metodoClicar(){alert("clicou")}
+metodoDigitar(evento: KeyboardEvent){
+this.valorQueFoiDigitado = (<HTMLInputElement>evento.target).value}
+salvarValor(valor: string){this.valorSalvo = valor}
+onMouseOverOut(){this.isMouseOver = !this.isMouseOver}
+onMudouValor(evento){console.log(evento);console.log(evento.novoValor);}
+//html
+<button (click)="metodoClicar()">Clique</button>
+<!--por baixo dos panos o angular transforma o de baixo no de cima-->
+<button on-click="metodoClicar()">Clique</button>
+<input type="text" name="" id="" (keyup)="metodoDigitar($event)"
+(keyup.enter)="salvarValor($event.target.value)"
+(blur)="salvarValor(campoInput.value)" #campoInput>
+<p>valor atual: {{valorQueFoiDigitado}}</p>
+<p>valor salvo: {{valorSalvo}}</p>
+<span (mouseover)="onMouseOverOut()" (mouseout)="onMouseOverOut()" [class.highlight] = "isMouseOver" >Passe o mouse sobre mim</span></div>
+```
+<li>
+</ol>
 
