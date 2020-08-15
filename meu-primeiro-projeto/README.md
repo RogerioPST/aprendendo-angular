@@ -1,6 +1,6 @@
 # MeuPrimeiroProjeto com Angular
 - [x] - Anotações
-- [ ] - complementar
+- [ ] - olhar as anotações sobre <b>MÓDULOS</b> na pasta modulos
 
 ## Anotações:
 <ol>
