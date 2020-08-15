@@ -37,6 +37,17 @@ ng new primeiro-projeto
 ng g c meu-primeiro-componente
 ```
 </li>
+<li>cria o módulo com a angular/cli'
 
+```javascript
+ng g m cursos
+```
+</li>
+<li>cria o serviço com a angular/cli'
+
+```javascript
+ng g s cursos
+```
+</li>
 </ul>
 </li>
