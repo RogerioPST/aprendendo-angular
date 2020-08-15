@@ -3,15 +3,15 @@
 
 ## Anotações:
 <ol>
-<li>dentro de declarations, colocamos os componentes, pipes e as diretivas, que se enxergam e que vamos usar nesse módulo:
+<li>
 
 ```javascript
 @NgModule({
   declarations: [
-    AppComponent
+		AppComponent
   ],
   imports: [
-    BrowserModule,
+		BrowserModule,
 		AppRoutingModule,
 		CursosModule
   ],
@@ -20,10 +20,15 @@
 })
 export class AppModule { }
 ```
-</li>
-<li>dentro de imports, colocamos outros módulos que queremos usar no módulo em questão ou componentes/pipes/diretivas dentro de declarations:
-</li>
-<li>dentro de providers, colocamos os serviços que ficarão disponíveis para componentes/pipes/diretivas dentro de declarations ou, no caso de AppModule, para toda aplicação. Exemplos no AppModule: serviços de autenticação, login, guarda de rotas:
+	<ul>
+		<li>
+		dentro de declarations, colocamos os componentes, pipes e as diretivas, que se enxergam e que vamos usar nesse módulo:
+		</li>
+		<li>dentro de imports, colocamos outros módulos que queremos usar no módulo em questão ou componentes/pipes/diretivas dentro de declarations:
+		</li>
+		<li>dentro de providers, colocamos os serviços que ficarão disponíveis para componentes/pipes/diretivas dentro de declarations ou, no caso de AppModule, para toda aplicação. Exemplos no AppModule: serviços de autenticação, login, guarda de rotas:
+		</li>
+	</ul>
 </li>
 <li>no módulo de funcionalidade, no imports tem o CommonModule e no AppModule, o BrowserModule:
 
