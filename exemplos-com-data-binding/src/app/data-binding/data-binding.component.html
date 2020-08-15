@@ -9,10 +9,10 @@
 	</article>
 	<article>
 		<h3>Property Binding</h3>
-		<img src="{{urlImagem}}" alt="">
-		<img [src]="urlImagem" alt="">
+		img1<img src="{{urlImagem}}" alt="">
+		img2 <img [src]="urlImagem" alt="">
 <!-- a linha de cima é um açucar sintatico da linha de baixo-->
-		<img bind-src="urlImagem" alt="">
+		img3<img bind-src="urlImagem" alt="">
 	</article>
 	
 	
@@ -21,6 +21,7 @@
 		<div>
 			Selecione uma classe:
 		</div>
+		<!-- classe eh variavel local de template-->
 		<select #classe (change)="0">
 			<option value="alert-success">Sucesso</option>
 			<option value="alert-info">infoo</option>
@@ -28,6 +29,7 @@
 			<option value="alert-danger">danger</option>
 		</select>
 		<br /><br />
+		true ou false: {{ classe.value == 'alert-success' }}
 		<!-- acrescentando o class binding-->		
 		<div 
 			[class.alert-success]="classe.value == 'alert-success'"

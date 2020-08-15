@@ -10,12 +10,14 @@
 <li>pode usar p contas, operações lógicas:
 
 ```javascript
+//arquivo html
 <p>String renderizada com interpolação (quem também é uma forma de property binding): {{ url }}</p>
 <p>Resultado de 1 + 1 : {{ 1+1 }}</p>
 <p>Resultado de 1 + 1 não é: {{ 1+1+ getValor() }}</p>
 <p>Curso de angular: {{ cursoAngular && getCurtirCurso()}}</p>
 <img src="{{urlImagem}}" alt="">
 
+//arquivo .ts
 url: string = 'www.google.com'
 cursoAngular: boolean = true
 getCurtirCurso() : boolean{ return true }
@@ -36,6 +38,40 @@ urlImagem : string = 'https://images.unsplash.com/photo-1588615419957-bf66d53c6b
 ```
 </li>
 <li>quando não existe uma propriedade no elemento, usa-se <b>[attr.colspan]</b></li>
+</ol>
+
+### CLASS BINDING
+<ol>
+<li>
+	<ul>
+	<li>classe eh variavel local de template</li>
+	<li>classe eh variavel local de template</li>
+	</ul>
+
+```javascript
+
+//css
+.alert-success{	background-color: green;}
+.alert-info{	background-color: blue;}
+.alert-warn{	background-color: yellow;}
+.alert-danger{	background-color: red;} 
+//html
+<select #classe (change)="0">
+	<option value="alert-success">Sucesso</option>
+	<option value="alert-info">infoo</option>
+	<option value="alert-warn">warning</option>
+	<option value="alert-danger">danger</option>
+</select>
+true ou false: {{ classe.value == 'alert-success' }}
+<!-- acrescentando o class binding-->		
+<div [class.alert-success]="classe.value == 'alert-success'">sucesso</div>
+<div [class.alert-info]="classe.value == 'alert-info'">info</div>
+<div [class.alert-warn]="classe.value == 'alert-warn'">warning</div>
+<div [class.alert-danger]="classe.value == 'alert-danger'">danger</div>		
+<!-- outra forma de acrescentar a classe-->
+<div class="{{classe.value}}">texto colorido conforme valor do combo-box</div>
+``` 
+</li>
 </ol>
 
 
