@@ -1,6 +1,6 @@
 # MeuPrimeiroProjeto com Angular
 - [x] - Anotações
-- [ ] - olhar as anotações sobre <b>MÓDULOS</b> na pasta modulos
+- [ ] - <a href="https://github.com/RogerioPST/aprendendo-angular/blob/master/meu-primeiro-projeto/modulos/README.MD">olhar as anotações sobre <b>MÓDULOS</b> na pasta modulos</a>
 
 ## Anotações:
 <ol>
