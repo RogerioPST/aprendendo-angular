@@ -33,8 +33,8 @@ A origem da tag 'template' é a especificação padrão Web Components que está
 cursos: string[] = [];
 mostrarCursos: boolean = true;
 toogleCursos(){ this.mostrarCursos = !this.mostrarCursos}
-//html
 
+//html
 <div *ngIf="cursos.length > 0">	Lista de cursos aqui</div>
 <div *ngIf="cursos.length == 0">	não existem cursos </div>
 <div *ngIf="mostrarCursos"> 	lista de cursos aqui </div>
@@ -60,6 +60,7 @@ toogleCursos(){ this.mostrarCursos = !this.mostrarCursos}
 aba: string = 'home';
 abaFuncao: string = 'home';
 mudaValorDaAbaFuncao(novoValor: string){this.abaFuncao = novoValor}
+
 //html
 <div [ngSwitch]="aba">
 <p *ngSwitchCase="'home'">Modo home ativado</p>
@@ -76,6 +77,7 @@ mudaValorDaAbaFuncao(novoValor: string){this.abaFuncao = novoValor}
 <p>Mapa ativado</p></ng-template>
 <ng-template [ngSwitchCase]="'lista'">
 <p>Lista ativado</p></ng-template>
+
 //css
 .active{ 	font-weight: bold; } 
 .flexivel{ 	display: flex; 	justify-content: space-between; }
@@ -88,6 +90,7 @@ mudaValorDaAbaFuncao(novoValor: string){this.abaFuncao = novoValor}
 
 // .ts
 cursos: string[] = ["Angular", "Java", "CSS"]
+
 //html
 <li *ngFor="let curso of cursos, let i = index ">
 {{i}} - {{curso}}</li>
@@ -104,6 +107,7 @@ cursos: string[] = ["Angular", "Java", "CSS"]
 // .ts
 meuFavorito : boolean = false;
 onClick(){		this.meuFavorito = !this.meuFavorito	}
+
 //html
 <div [class.corAzul]="!meuFavorito" [class.corVermelho]="meuFavorito" (click)="onClick()" >{{meuFavorito}}
 <p>esse texto fica com a cor de fonte e fundo de acordo com a classe</p></div>
@@ -111,6 +115,7 @@ onClick(){		this.meuFavorito = !this.meuFavorito	}
 <div [ngClass]="{ 'corAzul':!meuFavorito, 
 'corVermelho':meuFavorito }" (click)="onClick()"> {{meuFavorito}}
 <p>esse texto fica com a cor de fonte e fundo de acordo com a classe</p></div>
+
 //css
 .corAzul{		background-color: blueviolet;}
 .corVermelho{		background-color: red;}
@@ -125,6 +130,7 @@ onClick(){		this.meuFavorito = !this.meuFavorito	}
 ativo : boolean = false;
 tamanhoFonte: number = 10;
 mudarAtivo(){ this.ativo = !this.ativo }
+
 //html
 <h5>Styles com property binding (style binding)</h5>
 <p>ativo: {{ativo}}</p><button
