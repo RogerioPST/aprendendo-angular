@@ -20,7 +20,7 @@
 <li>hidden como alternativa -é menos custoso usar o hidden caso o custo de criar a árvore de elementos seja grande.
 </li>
 <li>
-A origem da tag <template> é a especificação padrão Web Components que está sendo implementada nos browsers. [(http://webcomponents.org/articles/introduction-to-template-element)]
+A origem da tag <template> é a especificação padrão Web Components que está sendo implementada nos browsers. http://webcomponents.org/articles/introduction-to-template-element
 </li>
 </ul>
 
