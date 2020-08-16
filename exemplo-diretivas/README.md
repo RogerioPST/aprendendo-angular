@@ -17,7 +17,9 @@
 </ul>
 </li>
 
-<li>DIRETIVA ngIf: 
+<li>DIRETIVAS:
+<ul>
+<li>DIRETIVA ngIf: </li>
 <ul>
 <li>[hidden] - como alternativa - é menos custoso usar o hidden caso o custo de criar a árvore de elementos seja grande. obs: hidden não deve ser usado qdo usuário não pode ver algum item.
 </li>
@@ -139,4 +141,5 @@ input tamanhoFonte: {{tamanhoFonte}}
 <input type="text" [(ngModel)]="tamanhoFonte"> 
 ```
 </li>
+</ul>
 </ol>
