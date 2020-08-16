@@ -5,7 +5,7 @@
 
 ## Anotações:
 <ol>
-<li>Informações sobre o que são diretivas:
+<li>ng-content:
 
 ```javascript
 //app.component.html - componente q vai passar conteudo

@@ -16,8 +16,37 @@
 </li>
 </ul>
 </li>
+<li>DIRETIVA CUSTOMIZADAS: 
+<ul>
+<li>DIRETIVA fundoAmarelo - elemento que a possuir terá o fundo amarelo, exceto se for diferente da tag <p>:
+<ul>
+<li>se eu quiser q a diretiva seja aplicada apenas a um tipo de tag html ou componente, coloco esse elemento na frente do selector, mesmo q eu tente aplicar ao button como no exemplo, n vai!!</li>
+<li>ElementRef é a classe p referenciar qq elemento do DOM </li>
+<li>o codigo abaixo permite ataques de cross scripting e o angular pede p usar Renderer no lugar
+//this._elementRef.nativeElement.style.backgroundColor = 'yellow'
+</li>
 
-<li>DIRETIVAS:
+</ul>
+
+```javascript
+
+// fundo-amarelo.directive.ts
+@Directive({
+selector: 'p[diretivaFundoAmarelo]'
+})
+export class FundoAmareloDirective {
+constructor(private _elementRef: ElementRef, private _renderer: Renderer2) { 
+console.log(_elementRef);
+this._renderer.setStyle(this._elementRef.nativeElement, 'background-color', 'yellow')}}
+
+//html
+<p diretivaFundoAmarelo>diretivas-customizadas works!</p>
+```
+</li>
+
+</ul>
+
+<li>DIRETIVAS BUILT-IN:
 <ul>
 <li>DIRETIVA ngIf: 
 <ul>
@@ -149,5 +178,7 @@ input tamanhoFonte: {{tamanhoFonte}}
 <input type="text" [(ngModel)]="tamanhoFonte"> 
 ```
 </li>
+
+
 </ul>
 </ol>
