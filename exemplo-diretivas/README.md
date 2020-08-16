@@ -34,6 +34,7 @@ cursos: string[] = [];
 mostrarCursos: boolean = true;
 toogleCursos(){ this.mostrarCursos = !this.mostrarCursos}
 //html
+/*
 <div *ngIf="cursos.length > 0">	Lista de cursos aqui</div>
 <div *ngIf="cursos.length == 0">	não existem cursos </div>
 <div *ngIf="mostrarCursos"> 	lista de cursos aqui </div>
@@ -48,6 +49,7 @@ toogleCursos(){ this.mostrarCursos = !this.mostrarCursos}
 <ng-template [ngIf]="mostrarCursos">
 	<div>Lista de cursos aqui</div>
 </ng-template>	
+*/
 ```
 </li>
 
