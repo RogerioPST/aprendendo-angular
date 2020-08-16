@@ -18,9 +18,8 @@ export class HighlightMouseDirective {
 //com o HostBinding, n preciso da injecao de dependencia e nem 
 //da classe Renderer2. permite fazer a associacao de uma classe, 
 //atributo css do html para uma variavel
-@HostBinding('style.backgroundColor') fundoDoElemento: string
-  constructor(private _elementeRef: ElementRef, private _renderer2: Renderer2) { 
+@HostBinding('style.backgroundColor') fundoDoElemento: string;
 
-	}
-
+/* constructor(private _elementeRef: ElementRef, private _renderer2: Renderer2) { 
+} */
 }

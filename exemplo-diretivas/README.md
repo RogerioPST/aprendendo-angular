@@ -18,11 +18,11 @@
 </li>
 <li>DIRETIVA CUSTOMIZADAS: 
 <ul>
-<li>DIRETIVA fundoAmarelo - elemento que a possuir terá o fundo amarelo, exceto se for diferente da tag <p>:
+<li>DIRETIVA fundoAmarelo - elemento que a possuir terá o fundo amarelo, exceto se for diferente da tag 'p':
 <ul>
-<li>se eu quiser q a diretiva seja aplicada apenas a um tipo de tag html ou componente, coloco esse elemento na frente do selector, mesmo q eu tente aplicar ao button como no exemplo, n vai!!</li>
+<li>se eu quiser q a diretiva seja aplicada apenas a um tipo de tag html ou componente, coloco esse elemento na frente do selector. Exemplos: p[diretivaFundoAmarelo], button[diretivaFundoAmarelo], app-diretiva-ngif[diretivaFundoAmarelo]. No caso, como foi aplicado a tag 'p', mesmo q eu tente aplicar ao button como no exemplo, n vai!!</li>
 <li>ElementRef é a classe p referenciar qq elemento do DOM </li>
-<li>o codigo abaixo permite ataques de cross scripting e o angular pede p usar Renderer no lugar
+<li>o codigo abaixo funciona, mas permite ataques de cross scripting e o angular pede p usar Renderer no lugar
 //this._elementRef.nativeElement.style.backgroundColor = 'yellow'
 </li>
 
@@ -41,6 +41,34 @@ this._renderer.setStyle(this._elementRef.nativeElement, 'background-color', 'yel
 
 //html
 <p diretivaFundoAmarelo>diretivas-customizadas works!</p>
+```
+</li>
+
+<li>DIRETIVA highlight-mouse - elemento que a possuir terá uma mudança de background-color qdo passar o mouse por cima dele:
+<ul>
+<li>a classe HostListener permite escutar um evento de passar o 
+mouse, por exemplo</li>
+<li>p n duplicar codigo, com o HostBinding, n preciso da injecao de dependencia e nem 
+da classe Renderer2 e ele permite fazer a associacao de um determinado atributo da diretiva p um determinado atributo do html, css, classe do HTML. Por ex, o 'style.backgroundColor'</li>
+</ul>
+
+```javascript
+
+// highlight-mouse.directive.ts
+@Directive({
+	selector: '[diretivaHighlightMouse]'})
+export class HighlightMouseDirective {
+@HostListener('mouseenter') quandoMouseEstaOver(){
+//this._renderer2.setStyle(this._elementeRef.nativeElement, 'background-color', 'yellow')
+this.fundoDoElemento = 'yellow'}
+@HostListener('mouseleave') quandoMouseEstaFora(){
+//this._renderer2.setStyle(this._elementeRef.nativeElement, 'background-color', 'white')
+this.fundoDoElemento = 'white'}
+@HostBinding('style.backgroundColor') fundoDoElemento: string;
+//constructor(private _elementeRef: ElementRef, private _renderer2: Renderer2) { }}
+
+//html
+<p diretivaHighlightMouse>Texto com highlight quando passo o mouse</p>
 ```
 </li>
 
