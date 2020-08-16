@@ -1,16 +1,22 @@
 <p>exemplo-ng-content works!</p>
 <div>
-	<div>Titulo</div>
+	<div>Titulo do ng-content:</div>
 	<div>
+	<b>	conteudo passado vem aqui:</b>
 		<ng-content></ng-content>
+	<b>	fim do conteudo passado</b>
 	</div>
 </div>
 
 <div>
 	<div>
+		<b>apenas titulo passado vem aqui:</b>
 		<ng-content select=".titulo"></ng-content>
+		<b> fim do apenas titulo passado vem aqui:</b>
 	</div>
 	<div>
+		<b> apenas corpo passado vem aqui: </b>
 		<ng-content select=".corpo"></ng-content>
+		<b> fim do apenas corpo passado vem aqui:</b>
 	</div>
 </div>
