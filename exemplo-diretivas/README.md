@@ -19,12 +19,12 @@
 
 <li>DIRETIVAS:
 <ul>
-<li>DIRETIVA ngIf: </li>
+<li>DIRETIVA ngIf: 
 <ul>
 <li>[hidden] - como alternativa - é menos custoso usar o hidden caso o custo de criar a árvore de elementos seja grande. obs: hidden não deve ser usado qdo usuário não pode ver algum item.
 </li>
 <li>
-A origem da tag <template> é a especificação padrão Web Components que está sendo implementada nos browsers. http://webcomponents.org/articles/introduction-to-template-element
+A origem da tag 'template' é a especificação padrão Web Components que está sendo implementada nos browsers. http://webcomponents.org/articles/introduction-to-template-element
 </li>
 </ul>
 
@@ -34,7 +34,7 @@ cursos: string[] = [];
 mostrarCursos: boolean = true;
 toogleCursos(){ this.mostrarCursos = !this.mostrarCursos}
 //html
-/*
+
 <div *ngIf="cursos.length > 0">	Lista de cursos aqui</div>
 <div *ngIf="cursos.length == 0">	não existem cursos </div>
 <div *ngIf="mostrarCursos"> 	lista de cursos aqui </div>
@@ -49,9 +49,9 @@ toogleCursos(){ this.mostrarCursos = !this.mostrarCursos}
 <ng-template [ngIf]="mostrarCursos">
 	<div>Lista de cursos aqui</div>
 </ng-template>	
-*/
 ```
 </li>
+
 
 <li>DIRETIVA ngSwitch: 
 
