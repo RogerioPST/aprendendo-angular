@@ -54,9 +54,10 @@ export class DataBindingComponent implements OnInit {
 	}
 
 	onMudouValor(evento){
-		console.log(evento)
-		console.log(evento.novoValor)
-
+		console.log('chamado qdo recebe o event binding customizado do output-property.ts', evento)
+		console.log('valor escutado de output-property.ts', evento.novoValor)
+		console.log('função recebida e executada em output-property.ts', evento.mostraLog())
+		console.log('componente app-ciclo-vida vindo de output-property.ts via @ViewChild', evento.componenteCicloVida)
 	}
 
   constructor() { }

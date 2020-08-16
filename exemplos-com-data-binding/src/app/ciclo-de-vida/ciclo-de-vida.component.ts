@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-ciclo-de-vida',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ciclo-de-vida.component.css']
 })
 export class CicloDeVidaComponent implements OnInit {
+
+	@Input() valorCicloDeVida : number = 10
 
 	constructor() { 
 		this.log('constructor')

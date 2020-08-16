@@ -83,21 +83,25 @@
 	<article>
 		<h3>Two way data binding</h3>
 		<div>
-			<p>1ª forma
+			<p>1ª forma juntando property binding e event binding
 			<input type="text" 
 				[value]="nome"
 				(input)="nome = $event.target.value"
 			/></p>
 <!--ngModel é a representacao de uma entidade, q pode ser
-campo simples string ou um objeto-->			
-			<p>2ª forma
-			<input type="text" 
-			[(ngModel)]="nome"
+campo simples string ou um objeto-->					
+			<p>2ª forma juntando property binding e event binding
+				<input type="text" 
+			[ngModel]="nome"
+			(ngModelChange)="nome = $event"
 			/></p>
-			<p>3ª forma
+			<p>a 1ª forma do two way data binding:
+				<input type="text" 
+				[(ngModel)]="nome"
+				/></p>
+			<p>a 2ª form two way data binding - por baixo dos panos:
 			<input type="text" 
-			bindon-ngModel="nome"
-			/></p>
+			bindon-ngModel="nome"/></p>
 			<p>Você digitou: {{nome}}</p>
 		</div>
 		<div>
@@ -120,6 +124,6 @@ campo simples string ou um objeto-->
 			(mudouValor)="onMudouValor($event)"
 		>
 		</app-output-property>
-		<app-ciclo-de-vida></app-ciclo-de-vida>
+		<app-ciclo-de-vida valorCicloDeVida=115></app-ciclo-de-vida>
 	</article>
 </section>

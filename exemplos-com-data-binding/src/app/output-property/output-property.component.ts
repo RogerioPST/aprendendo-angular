@@ -13,19 +13,30 @@ export class OutputPropertyComponent implements OnInit {
 	@Output() mudouValor = new EventEmitter()
 
 	@ViewChild('campoInput') campoValorInput: ElementRef
+	@ViewChild('componenteCicloVida') componenteCicloVida: ElementRef
 
 	incrementa(){
-		this.valor++		
+		//this.valor++		
 		//a linha abaixo pode ser substituida pelo conteudo acima
-		//this.campoValorInput.nativeElement.value++
-		this.mudouValor.emit({novoValor: this.valor})
+		this.campoValorInput.nativeElement.value++
+		this.mudouValor.emit(
+			{
+				novoValor: this.valor, 
+				mostraLog: () =>{console.log('log vindo da funcao de output-property.ts')},
+				componenteCicloVida: this.componenteCicloVida
+			})
 	}
 
 	decrementa(){
-		this.valor--
+		//this.valor--
 		//a linha abaixo pode ser substituida pelo conteudo acima
-		//this.campoValorInput.nativeElement.value++
-		this.mudouValor.emit({novoValor: this.valor})
+		this.campoValorInput.nativeElement.value--
+		this.mudouValor.emit(
+			{
+				novoValor: this.valor, 
+				mostraLog: () =>{console.log('log vindo da funcao de output-property.ts')},
+				componenteCicloVida: this.componenteCicloVida
+			})
 	}
 
   constructor() { }
