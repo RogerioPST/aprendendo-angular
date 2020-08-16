@@ -16,6 +16,7 @@
 </li>
 </ul>
 </li>
+
 <li>DIRETIVA ngIf: 
 <ul>
 <li>[hidden] - como alternativa - é menos custoso usar o hidden caso o custo de criar a árvore de elementos seja grande. obs: hidden não deve ser usado qdo usuário não pode ver algum item.
@@ -51,7 +52,6 @@ toogleCursos(){ this.mostrarCursos = !this.mostrarCursos}
 <li>DIRETIVA ngSwitch: 
 
 ```javascript
-
 // .ts
 aba: string = 'home';
 abaFuncao: string = 'home';
@@ -85,7 +85,7 @@ mudaValorDaAbaFuncao(novoValor: string){this.abaFuncao = novoValor}
 // .ts
 cursos: string[] = ["Angular", "Java", "CSS"]
 //html
-<ul><li *ngFor="let curso of cursos, let i = index ">
+<li *ngFor="let curso of cursos, let i = index ">
 {{i}} - {{curso}}</li></ul>
 <h5>Removendo o * do ngFor e usando o ng-template, que é o que o angular faz por baixo dos panos</h5><ul>
 <ng-template ngFor [ngForOf]="cursos" let-curso let-i="index">

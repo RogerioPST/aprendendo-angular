@@ -1,4 +1,4 @@
-# ExemploDiretivas com Angular
+# Exemplo de ng-content para passar componentes para outros componentes com Angular
 - [x] - Anotações
 - [ ] - [olhar as anotações sobre <b>MÓDULOS</b> na pasta modulos](https://github.com/RogerioPST/aprendendo-angular/blob/master/meu-primeiro-projeto/modulos/README.MD)
 - [ ] - [olhar as anotações sobre <b>ng-content</b> para passar componentes para outros componentes](https://github.com/RogerioPST/aprendendo-angular/blob/master/exemplo-diretivas/ng-content/README.MD)
@@ -15,6 +15,7 @@
 </div><div class="corpo">Corpo2 passado pelo componente
 </div>restante do conteudo passado pelo componente
 </app-exemplo-ng-content>
+_________________________________________________________________
 //exemplo-ng-content.component.html - componente q vai receber conteudo passado
 <p>exemplo-ng-content works!</p><div><div>Titulo do ng-content:
 </div><div><b>	conteudo passado vem aqui:</b><ng-content>
