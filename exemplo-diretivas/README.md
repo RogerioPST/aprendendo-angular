@@ -86,10 +86,10 @@ mudaValorDaAbaFuncao(novoValor: string){this.abaFuncao = novoValor}
 cursos: string[] = ["Angular", "Java", "CSS"]
 //html
 <li *ngFor="let curso of cursos, let i = index ">
-{{i}} - {{curso}}</li></ul>
-<h5>Removendo o * do ngFor e usando o ng-template, que é o que o angular faz por baixo dos panos</h5><ul>
+{{i}} - {{curso}}</li>
+<h5>Removendo o * do ngFor e usando o ng-template, que é o que o angular faz por baixo dos panos</h5>
 <ng-template ngFor [ngForOf]="cursos" let-curso let-i="index">
-<li>{{i}} - {{curso}}</li></ng-template></ul></div>
+<li>{{i}} - {{curso}}</li></ng-template></div>
 ```
 </li>
 
