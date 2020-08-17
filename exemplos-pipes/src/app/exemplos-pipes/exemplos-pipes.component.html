@@ -15,12 +15,14 @@ Filtro: <input type="text" [(ngModel)]="filtro"><br>
 	(click)="addCurso(novoValor.value)"
 >Add Curso</button>
 <h5>Pipe Puro - n deve ser usado em producao</h5>
+<h5>Pipe Puro - n olha as modificações do valor q eh passado p o metodo transform</h5>
 <ul>
 	<li *ngFor="let liv of livros | meufiltroArray:filtro">
 		{{liv  }}
 	</li>
 </ul>
 <h5>Pipe ImPuro - q tb n deve ser usado em producao</h5>
+<h5>Pipe ImPuro - olha as modificações do valor q eh passado p o metodo transform</h5>
 <ul>
 	<li *ngFor="let liv of livros | meufiltroArrayImpuro:filtro">
 		{{liv  }}

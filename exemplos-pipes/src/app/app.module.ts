@@ -26,15 +26,15 @@ registerLocaleData(br, 'pt-BR');
 		AppRoutingModule,
 		FormsModule
   ],
-  providers: [ {
+  providers: [ /* {
 		provide: LOCALE_ID,
 		useValue: 'pt-BR'
-	},  /* MeusSettingsService,
+	},  */ MeusSettingsService,
 	{
 		provide: LOCALE_ID,
 		deps: [MeusSettingsService],
 		useFactory: (settingsService) => settingsService.getLocale()
-	} */
+	}
 		
 	],
   bootstrap: [AppComponent]

@@ -7,11 +7,12 @@
 <ol>
 <li>Informações sobre os Serviços:
 <ul>
+<li>pode ser feito um settingsService p fornecer info da app, usuarios p a app inteira</li>
 <li>são Singletons e são colocados apenas em um dos providers do módulo p ficarem disponiveis p aquele modulo ou no app.module p app toda ou apenas no Componente p ficar disponivel apenas para aquele componente: 'providers: [CursosService,LogService]'</li>
 <li>se quiser q tenha mais de uma instancia do CursosService, colocar como provider em mais de um Componente.</li>
 </ul>
 </li>
-<li>qdo n puder passar informações via property @Input() - de pai p filho e @Output() - filho p pai, pode usar os Serviços )broadcast de eventos) p essa comunicação.
+<li>qdo n puder passar informações via property @Input() - de pai p filho e @Output() - filho p pai, pode usar os Serviços (broadcast de eventos) p essa comunicação.
 <ol>
 <li>cada componente vai ter como provider o CursosService e no CursosService terá 'static emitirCursoCriado = new EventEmitter' que irá emitir o evento de curso criado a cada nova adição: '
 CursosService.criouNovoCurso.emit(curso)'
