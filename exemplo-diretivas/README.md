@@ -103,9 +103,9 @@ Texto com a versão do highlight mais completa quando passo o mouse</p>
 ```
 </li>
 
-<li>DIRETIVA de estrutura ngElse - else:
+<li>DIRETIVA de estrutura ngElse:
 <ul>
-<li>como essa diretiva pode ser usada em qq tag, coloco o <any> em ('TemplateRef<any>')</li>
+<li>como essa diretiva pode ser usada em qq tag, coloco o 'any' em ('TemplateRef<<any>>')</li>
 <li>TemplateRef - faz referencia ao proprio template ('ng-template [diretivaNgElse]="!mostrarCursos"')</li>
 <li>ViewContainerRef - faz referencia ao conteudo dentro do TemplateRef</li>
 <li>alem de ser um @Input property, a diretiva recebe uma expressao booleana ('[diretivaNgElse]="!mostrarCursos"')
