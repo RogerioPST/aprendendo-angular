@@ -267,7 +267,7 @@ this.campoValorInput.nativeElement.value--;
 </ol>
 
 
-### CICLO DE VIDA DO COMPONENTE
+### CICLO DE VIDA DO COMPONENTE / LIFE CYCLE HOOKS
 <ol>
 <li>
 <ul>

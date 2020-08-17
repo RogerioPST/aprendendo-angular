@@ -18,7 +18,7 @@
 </li>
 <li>DIRETIVA CUSTOMIZADAS: 
 <ul>
-<li>DIRETIVA fundoAmarelo - elemento que a possuir terá o fundo amarelo, exceto se for diferente da tag 'p':
+<li>DIRETIVA de atributo fundoAmarelo - elemento que a possuir terá o fundo amarelo, exceto se for diferente da tag 'p':
 <ul>
 <li>se eu quiser q a diretiva seja aplicada apenas a um tipo de tag html ou componente, coloco esse elemento na frente do selector. Exemplos: p[diretivaFundoAmarelo], button[diretivaFundoAmarelo], app-diretiva-ngif[diretivaFundoAmarelo]. No caso, como foi aplicado a tag 'p', mesmo q eu tente aplicar ao button como no exemplo, n vai!!</li>
 <li>ElementRef é a classe p referenciar qq elemento do DOM </li>
@@ -44,7 +44,7 @@ this._renderer.setStyle(this._elementRef.nativeElement, 'background-color', 'yel
 ```
 </li>
 
-<li>DIRETIVA highlight-mouse - elemento que a possuir terá uma mudança de background-color qdo passar o mouse por cima dele:
+<li>DIRETIVA de atributo highlight-mouse - elemento que a possuir terá uma mudança de background-color qdo passar o mouse por cima dele:
 <ul>
 <li>a classe HostListener permite escutar um evento de passar o 
 mouse, por exemplo</li>
@@ -69,6 +69,80 @@ this.fundoDoElemento = 'white'}
 
 //html
 <p diretivaHighlightMouse>Texto com highlight quando passo o mouse</p>
+```
+</li>
+
+<li>DIRETIVA de atributo versao-mais-completa-highlight-mouse - elemento que a possuir terá uma mudança de background-color qdo passar o mouse por cima dele e vai permitir o usuário escolher as cores por @Input() property:
+<ul>
+<li>[diretivaVersaoMaisCompletaHighlight]="'red'" - usando o mesmo nome da diretiva e @Input('diretivaVersaoMaisCompletaHighlight'), o Angular sabe q se trata de diretiva e de @Input() property ao mesmo tempo.</li>
+</ul>
+
+```javascript
+
+// versao-mais-completa-highlight.directive.ts
+@Directive({
+selector: '[diretivaVersaoMaisCompletaHighlight]'})
+export class VersaoMaisCompletaHighlightDirective {
+@HostListener('mouseenter') mouseDentro(){		
+this.fundo = this.highlightColor}
+@HostListener('mouseleave') mouseFora(){		
+this.fundo = this.defaultColor}
+@HostBinding('style.backgroundColor') fundo: string
+@Input() defaultColor : string = 'white'
+@Input() newColor : string = 'blue'
+@Input('diretivaVersaoMaisCompletaHighlight') highlightColor : string = 'yellow'
+ngOnInit(){ this.fundo = this.newColor }
+
+//html
+<p diretivaVersaoMaisCompletaHighlight
+[defaultColor]="'grey'"	[newColor]="'red'">
+Texto com a versão do highlight mais completa quando passo o mouse</p>
+<h5>Mesma coisa da linha acima, mas Com codigo ainda mais enxuto usando o input property com o mesmo nome da diretiva, o Angular eh inteligente p saber que é uma diretiva e ao mesmo tempo é uma input property</h5>
+<p [diretivaVersaoMaisCompletaHighlight]="'red'"
+[defaultColor]="'grey'"	>Texto com a versão do highlight mais completa quando passo o mouse</p> 
+```
+</li>
+
+<li>DIRETIVA de estrutura ngElse - else:
+<ul>
+<li>como essa diretiva pode ser usada em qq tag, coloco o <any> em ('TemplateRef<any>')</li>
+<li>TemplateRef - faz referencia ao proprio template ('ng-template [diretivaNgElse]="!mostrarCursos"')</li>
+<li>ViewContainerRef - faz referencia ao conteudo dentro do TemplateRef</li>
+<li>alem de ser um @Input property, a diretiva recebe uma expressao booleana ('[diretivaNgElse]="!mostrarCursos"')
+</li>
+<li>uso o set, pois quero escutar td vez q for modificado/tiver nova atribuição: ('@Input() set diretivaNgElse(expressionCondition: boolean)')</li>
+<li>o metodo createEmbeddedView() de _viewContainerRef mostra o conteudo: ('this._viewContainerRef.createEmbeddedView(this._templateRef)')</li>
+<li>o metodo clear() de _viewContainerRef destroi o elemento</li>
+</ul>
+
+```javascript
+//diretivas-customizadas.component.ts
+mostrarCursos: boolean = false;
+onMostrarCursos(){ this.mostrarCursos = ! this.mostrarCursos }
+
+// ng-else.directive.ts
+@Directive({ selector: '[diretivaNgElse]'})
+export class NgElseDirective {
+constructor(private _templateRef: TemplateRef<any>,
+private _viewContainerRef: ViewContainerRef) { }
+@Input() set diretivaNgElse(expressionCondition: boolean){
+if (!expressionCondition){
+//mostra o conteudo
+this._viewContainerRef.createEmbeddedView(this._templateRef)
+}else{
+//destroi o elemento
+this._viewContainerRef.clear()
+}
+}
+
+//html
+<div *diretivaNgElse="mostrarCursos">não existem cursos</div>
+<h5>Usando a diretiva ng-else criada por mim, mas com ng-template</h5>
+<ng-template [diretivaNgElse]="mostrarCursos">não existem cursos
+</ng-template>
+<ng-template [diretivaNgElse]="!mostrarCursos" >lista de cursos aqui </ng-template>
+<button (click)="onMostrarCursos()" >Mostrar ou esconder cursos
+</button>
 ```
 </li>
 

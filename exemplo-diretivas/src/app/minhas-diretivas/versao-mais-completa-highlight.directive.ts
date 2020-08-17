@@ -17,14 +17,15 @@ export class VersaoMaisCompletaHighlightDirective {
 	//para isso, uso o input p passar info customizada do html p 
 	//diretiva.
 	@Input() defaultColor : string = 'white'
-	@Input() highlightColor : string = 'yellow'
+	@Input() newColor : string = 'blue'
+	//@Input() highlightColor : string = 'yellow'
 	//Mesma coisa da linha acima, mas Com codigo ainda mais enxuto
-	//@Input('diretivaVersaoMaisCompletaHighlight') highlightColor : string = 'yellow'
+	@Input('diretivaVersaoMaisCompletaHighlight') highlightColor : string = 'yellow'
 
 	constructor() { }
 	
 	ngOnInit(){
-		this.fundo = this.defaultColor
+		this.fundo = this.newColor
 	}
 
 }
