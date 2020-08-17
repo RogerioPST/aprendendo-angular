@@ -5,7 +5,7 @@
 
 ## Anotações:
 <ol>
-<li>Informações sobre os Pipes (|):
+<li>Informações sobre os Pipes ( | ):
 <ul>
 <li>são os filtros, ou seja, transformam um valor mostrado dentro do template</li>
 <li>são aplicados na mesma ordem em que são colocados no código</li>
@@ -17,7 +17,7 @@
 <li>
 PIPES CUSTOMIZADOS:
 <ul>
-<li>
+<li>implementar o metodo transform da interface  PipeTransform c o q vc quer fazer c o seu Pipe:
 
 ```javascript
 
@@ -67,7 +67,8 @@ imports: [BrowserModule,AppRoutingModule,FormsModule],
 providers: [ {
 provide: LOCALE_ID,
 useValue: 'pt-BR'
-},  /* MeusSettingsService,
+},  /* //2ª forma
+ MeusSettingsService,
 {
 provide: LOCALE_ID,
 deps: [MeusSettingsService],
