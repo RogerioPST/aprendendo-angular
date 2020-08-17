@@ -151,7 +151,7 @@ lembrar de importar o FormsModule qdo for diferente de AppModule (import {FormsM
 <ol>
 <li>
 <ul>
-<li>pode ser passado como input property string ou objeto:</li>
+<li>pode ser passado como input property string ou objeto do componente pai p o filho:</li>
 <li>com o @Input() abaixo, conseguimos expor a propriedade nome  p q seja passado um valor de outro componente p cá</li>
 <li>no caso, 'nomeCurso' passa o valor para 'nome'</li>
 <li>eh possivel de ou usar a forma @Input ou o código comentado dentro de @Component: "inputs: ['nome:nomeCurso'] abaixo"</li>
@@ -180,7 +180,7 @@ nomeDoCurso: string = "Angular";
 <ol>
 <li>
 <ul>
-<li>usado para emitir eventos para o componente pai</li>
+<li>usado para emitir eventos do componente filho para o pai</li>
 <li>com o @Output() abaixo, conseguimos emitir um evento customizado para que o componente pai escute o resultado dessa função</li>
 <li>qdo o componente pai receber o evento 'mudouValor', chamará a função 'onMudouValor' p receber as informações passadas</li>
 <li>eh possivel de ou usar a forma @Output ou o código comentado dentro de @Component: "outputs: ['mudouValor'] abaixo"</li>

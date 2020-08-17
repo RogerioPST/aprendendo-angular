@@ -24,7 +24,7 @@ import { LogService } from './meus-servicos/log.service';
 		CriarCursoModule,
 		CursosModule
   ],
-  providers: [CursosService,LogService],
+  providers: [LogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

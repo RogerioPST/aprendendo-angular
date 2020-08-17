@@ -1,27 +1,93 @@
-# ExemplosServicos
+# Exemplos de Serviços com Angular
+- [x] - Anotações
+- [ ] - [olhar as anotações sobre <b>MÓDULOS</b> na pasta modulos](https://github.com/RogerioPST/aprendendo-angular/blob/master/meu-primeiro-projeto/modulos/README.MD)
+- [ ] - [olhar as anotações sobre <b>ng-content</b> para passar componentes para outros componentes](https://github.com/RogerioPST/aprendendo-angular/blob/master/exemplo-diretivas/ng-content/README.MD)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
+## Anotações:
+<ol>
+<li>Informações sobre os Serviços:
+<ul>
+<li>são Singletons e são colocados apenas em um dos providers do módulo p ficarem disponiveis p aquele modulo ou no app.module p app toda ou apenas no Componente p ficar disponivel apenas para aquele componente: 'providers: [CursosService,LogService]'</li>
+<li>se quiser q tenha mais de uma instancia do CursosService, colocar como provider em mais de um Componente.</li>
+</ul>
+</li>
+<li>qdo n puder passar informações via property @Input() - de pai p filho e @Output() - filho p pai, pode usar os Serviços )broadcast de eventos) p essa comunicação.
+<ol>
+<li>cada componente vai ter como provider o CursosService e no CursosService terá 'static emitirCursoCriado = new EventEmitter' que irá emitir o evento de curso criado a cada nova adição: '
+CursosService.criouNovoCurso.emit(curso)'
+</li>
+<li>o componente q quiser escutar esse evento, terá: 'CursosService.criouNovoCurso
+			.subscribe(cursoCriado =>this.curso = cursoCriado)'
+</li>
+<li>caso não seja static, preciso adicionar o componente ReceberCursoCriado ao modulo CriarCurso e adiconar o seletor do receberCursoCriado no html do criarCurso, fazendo c q o ReceberCursoCriado seja componente filho do CriarCurso e permaneça uma só instancia de CursosService compartilhada: this._cursosService.emitirCursoCriado.subscribe(cursoCriado =>this.curso = cursoCriado.
+</li>
 
-## Development server
+</ol>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```javascript
+//cursos.service.ts
+export class CursosService{
+emitirCursoCriado = new EventEmitter<string>();
+static criouNovoCurso = new EventEmitter<string>();
+cursos: string [] = ['Angular', 'Java', 'CSS']
+getCursos(){
+this._logService.consoleLog('obtendo lista de cursos')
+return this.cursos}
+constructor(private _logService: LogService){
+console.log('chamando construtor do CursosService')}
+addCurso(curso: string){this.cursos.push(curso)
+//msm tendo duas instancias de CursosService, c o codigo abaixo, faço a segunda instancia receber as info de cursos criados
+this.emitirCursoCriado.emit(curso)
+CursosService.criouNovoCurso.emit(curso)
+}
 
-## Code scaffolding
+//cursos.modules.ts
+@NgModule({
+declarations: [    CursosComponent],
+imports: [CommonModule,    ],
+exports: [CursosComponent]})
+export class CursosModule { }
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+//criar-curso-module.ts
+@NgModule({
+declarations:[CriarCursoComponent, ReceberCursoCriadoComponent],
+imports: [   CommonModule,      ],
+exports: [CriarCursoComponent]})
+export class CriarCursoModule { }
 
-## Build
+//app.module.ts
+@NgModule({
+declarations: [AppComponent,],
+imports: [BrowserModule,AppRoutingModule,CriarCursoModule,
+CursosModule],
+providers: [LogService],
+bootstrap: [AppComponent]})
+export class AppModule { }
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+//curso.component.ts
+export class CursosComponent implements OnInit {
+cursos: string[] = []
+constructor(private cursosService: CursosService) { }
+ngOnInit(): void {this.cursos = this.cursosService.getCursos();
+CursosService.criouNovoCurso
+.subscribe(curso => this.cursos.push(curso))}}
 
-## Running unit tests
+//criar-curso.component.ts
+cursos: string[] =[]
+constructor(private _cursosService: CursosService) { }
+ngOnInit(): void {this.cursos = this._cursosService.getCursos()}
+onAddCurso(curso: string){this._cursosService.addCurso(curso)}
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+//receber-curso-criado.component.ts
+export class ReceberCursoCriadoComponent implements OnInit {
+curso: string
+constructor(private _cursosService: CursosService) { }
+ngOnInit(): void {this._cursosService.emitirCursoCriado.subscribe(cursoCriado =>this.curso = cursoCriado)}}
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+//criar-curso.component.html
+<input type="text" #cursoInput>
+<button (click)="onAddCurso(cursoInput.value)">Adicionar</button>
+<app-receber-curso-criado></app-receber-curso-criado>
+```
+</li>
+</ol>

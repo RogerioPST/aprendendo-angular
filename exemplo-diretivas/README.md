@@ -16,7 +16,7 @@
 </li>
 </ul>
 </li>
-<li>DIRETIVA CUSTOMIZADAS: 
+<li>DIRETIVAS CUSTOMIZADAS: 
 <ul>
 <li>DIRETIVA de atributo fundoAmarelo - elemento que a possuir terá o fundo amarelo, exceto se for diferente da tag 'p':
 <ul>
@@ -105,7 +105,7 @@ Texto com a versão do highlight mais completa quando passo o mouse</p>
 
 <li>DIRETIVA de estrutura ngElse:
 <ul>
-<li>como essa diretiva pode ser usada em qq tag, coloco o 'any' em ('TemplateRef<<any>>')</li>
+<li>como essa diretiva pode ser usada em qq tag, coloco o 'any' em ('TemplateRef<>')</li>
 <li>TemplateRef - faz referencia ao proprio template ('ng-template [diretivaNgElse]="!mostrarCursos"')</li>
 <li>ViewContainerRef - faz referencia ao conteudo dentro do TemplateRef</li>
 <li>alem de ser um @Input property, a diretiva recebe uma expressao booleana ('[diretivaNgElse]="!mostrarCursos"')
@@ -131,9 +131,7 @@ if (!expressionCondition){
 this._viewContainerRef.createEmbeddedView(this._templateRef)
 }else{
 //destroi o elemento
-this._viewContainerRef.clear()
-}
-}
+this._viewContainerRef.clear()}}
 
 //html
 <div *diretivaNgElse="mostrarCursos">não existem cursos</div>
