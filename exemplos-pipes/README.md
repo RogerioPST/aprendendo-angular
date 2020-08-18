@@ -115,7 +115,7 @@ constructor() { }
 getLocale(){return 'pt-BR'}}
 ```
 </li>
-<li>Exemplo de como buscarItensFiltrados sem usar o parametro filtro em um pipe customizado (q n deve ser usado por questão de performance):
+<li>Exemplo de como deve ser usado em produção uma busca de itens com filtro por questão de performance ao invés de usar o parametro filtro em um pipe customizado:
 
 ```javascript
 //.ts
@@ -131,11 +131,8 @@ return false} )}
 
 //html
 <h5>Maneira correta q deve ser usada em producao - ao se usar filtros nos projetos</h5>
-<ul>
-	<li *ngFor="let liv of obterLivrosFiltrados()">
-		{{liv  }}
-	</li>
-</ul>
+<ul><li *ngFor="let liv of obterLivrosFiltrados()">
+{{liv  }}</li></ul>
 ```
 </li>
 </ol>

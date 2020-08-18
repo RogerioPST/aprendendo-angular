@@ -32,7 +32,7 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao
   ],
   imports: [
     BrowserModule,
-		AppRoutingModule,
+		AppRoutingModule,		
 		//CursosModule,-comentado qdo usamos o LAZY LOADING (aula62) - aba Network do console do navegador - arquivo cursos-cursos-module.js
 		//AlunosModule,-comentado qdo usamos o LAZY LOADING (aula62) - aba Network do console do navegador - arquivo alunos-alunos-module.js
 		ProfessoresModule

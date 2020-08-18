@@ -16,12 +16,12 @@ export class CursoDetalheComponent implements OnInit {
 	constructor(private route: ActivatedRoute, 
 		private cursosService: CursosService,
 		private router: Router) { 		
-//		this.id = this.route.snapshot.params['id']		
-//o codigo acima n funciona em todos os casos. usar subcribe abaixo
 	}
 
   ngOnInit(): void {
-		console.log('ngInit do CursoDetalheComponent')
+//		this.id = this.route.snapshot.params['id']		
+//o codigo acima n funciona em todos os casos. usar subcribe abaixo
+		console.log('ngInit do CursoDetalheComponent')		
 		this.inscricao = this.route.params.subscribe(params =>{
 			this.id = params['id']			
 				this.curso = this.cursosService.getCurso(this.id)
@@ -29,7 +29,7 @@ export class CursoDetalheComponent implements OnInit {
 						this.router.navigate(['/cursos/naoEncontrado', this.id])						
 				}			
 		})
-	}
+	} 
 	
 //como boa pratica , eh sempre bom no OnDestroy, cancelar 
 //a subscrição

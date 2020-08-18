@@ -18,6 +18,10 @@ export class CursoNaoEncontradoComponent implements OnInit {
 			this.id = params['id']
 			this.mensagem = `O curso com id ${this.id} não foi encontrado`
 		})
-  }
+	}
+	
+	ngOnDestroy(){
+		this.inscricao.unsubscribe()
+	}
 
 }

@@ -1,27 +1,191 @@
-# ExemplosRotas
+# Exemplos de Rotas com Angular
+- [x] - Anotações
+- [ ] - [olhar as anotações sobre <b>MÓDULOS</b> na pasta modulos](https://github.com/RogerioPST/aprendendo-angular/blob/master/meu-primeiro-projeto/modulos/README.MD)
+- [ ] - [olhar as anotações sobre <b>ng-content</b> para passar componentes para outros componentes](https://github.com/RogerioPST/aprendendo-angular/blob/master/exemplo-diretivas/ng-content/README.MD)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
+## Anotações:
+<ol>
+<ul>
+<li>deve ter cadastrado no index.html um href='/' ou c nome-da-app
 
-## Development server
+```javascript
+//index.html
+<base href="/">
+//ou
+<base href="/nome-aplicacao">
+```
+</li>
+<li>o componente da rota é renderizado dentro da tag 'router-outlet' em app.component.html
+</li>
+<li>o atributo params do activatedRoute é um BehaviorSubject e é por ele q fazemos um subscribe e pegamos o id da rota buscada: 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```javascript 
+//curso-detalhe.component.ts
+id: number
+inscricao: Subscription
+ngOnInit(): void {
+this.inscricao = this.activatedRoute.params.subscribe(params =>{
+	this.id = params['id']})}
 
-## Code scaffolding
+ngOnDestroy(){ 		this.inscricao.unsubscribe() 	}
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+//curso-detalhe.component.html
+<p>detalhe id: {{id ? id : ''}}</p>
+``` 
+</li>
+<li>a classe Router é usada p navegar/redirecionar p uma rota, ver se tal rota está ativa etc.: 
 
-## Build
+```javascript 
+//curso-detalhe.component.ts
+private router: Router;
+this.inscricao = this.route.params.subscribe(params =>{
+this.id = params['id']			
+this.curso = this.cursosService.getCurso(this.id)
+if (this.curso == null){											
+this.router.navigate(['/cursos/naoEncontrado', this.id])}})		
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+//cursos.component.ts
+pagina: number
+proximaPagina() {
+	this.router.navigate(['/cursos'], { queryParams: { 'pagina': ++this.pagina } })}
+ngOnInit(): void {
+	this.cursos = this.cursosService.getCursos()
+this.inscricao = this.route.queryParams.subscribe(queryParams => {	this.pagina = queryParams['pagina'] })}
 
-## Running unit tests
+//cursos.component.html
+<button (click)="proximaPagina()">
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+//app.component.html
+<a routerLink="cursos" [queryParams]="{pagina:1}">Cursos</a>
+``` 
+</li>
 
-## Running end-to-end tests
+<li>p navegar p a rota, usar a diretiva routerLink
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+```javascript
+//html
+//routerLink recebe array de parametros. como cursos eh rota raiz, a '/' eh opcional
+<a [routerLink]="['cursos', idCurso.value]">Curso com ID</a>
+<p>entre com o ID do curso <input type="text" #idCurso>
+```
+</li>
+<li>p colocar uma class css p a rota q estiver ativa, usar a diretiva routerLinkActive="ativa", sendo "ativa" o nome da classe css </li>
+</ul>
 
-## Further help
+<li>RouterModule.forRoot - rotas p toda a aplicação no app.module.ts, mas o mais correto é separar por modulos, como no app-routing.module.ts
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```javascript
+//app.module.ts
+//importar o routing de app.routing.ts, caso n seja lazy loading
+import { routing } from './app.routing';
+imports: [    BrowserModule,		AppRoutingModule,		routing, ]
+//app.routing.ts
+const APP_ROUTES : Routes = [
+{path: '',component: HomeComponent},
+{path: 'login',component: LoginComponent},
+{path: 'cursos',component: CursosComponent},
+{path: 'curso/:id',component: CursoDetalheComponent},
+{path: 'naoEncontrado/:id',component: CursoNaoEncontradoComponent},]
+
+export const routing: ModuleWithProviders = RouterModule
+.forRoot(APP_ROUTES)
+```
+</li>
+
+<li>RouterModule.forRoot usando o mais correto, q é separar por modulos, como no app-routing.module.ts:
+
+```javascript
+//app.module.ts
+//importar o AppRoutingModule
+imports: [    BrowserModule,		AppRoutingModule,		routing, ]
+
+//app-routing.module.ts
+const APP_ROUTES : Routes = [
+{path: '',component: HomeComponent},
+{path: 'login',component: LoginComponent},
+{path: 'cursos',component: CursosComponent},
+{path: 'curso/:id',component: CursoDetalheComponent},
+{path: 'naoEncontrado/:id',component: CursoNaoEncontradoComponent},]
+@NgModule({
+  imports: [RouterModule.forRoot(APP_ROUTES)],
+  exports: [RouterModule]})
+export class AppRoutingModule { }
+```
+</li>
+
+
+<li>RouterModule.forChild - módulo de rotas de funcionalidade. Por ex, cursos. n precisa do RouterModule no cursos.module.ts, pq ja esta sendo exportado pelo CursosRoutingModule:
+
+```javascript
+//cursos.routing.module.ts
+const cursosRoutes : Routes = [		
+	{path: '',component: CursosComponent,},
+	{path: 'naoEncontrado/:id',component: CursoNaoEncontradoComponent},
+	{path: ':id',component: CursoDetalheComponent},]
+@NgModule({
+  imports: [RouterModule.forChild(cursosRoutes)],
+  exports: [RouterModule]})
+export class CursosRoutingModule { }
+
+//cursos.module.ts
+imports: [CommonModule,		
+//n precisa do RouterModule, pq ja esta sendo exportado pelo CursosRoutingModule
+CursosRoutingModule ],
+
+//app.module.ts
+imports: [    BrowserModule,		AppRoutingModule,	CursosModule]
+```
+</li>
+
+
+<li>Rotas filhas
+<ul>
+<li>
+toda rota q for hard code, precisa ser avaliada primeiro,
+no caso, alunos/novo, pq se n, colide com a rota alunos/:id
+</li>
+<li>
+colocar a tag router-outlet no AlunosComponent
+</li>
+<li>
+colocar o ALunosModule no app.module.ts ou realizar lazy loading, como mais p baixo da pagina
+</li>
+<li>como estamos trabalhando c rotas filhas, precisamos
+passar apenas aluno.id no routerLink
+</li>
+</ul>
+
+```javascript
+//alunos.routing.module.ts
+const alunosRoutes = [
+{path: 'alunos', component: AlunosComponent, 
+children: [
+{path: 'novo', component: AlunoFormComponent},
+{path: ':id', component: AlunoDetalheComponent,},
+{path: ':id/editar', component: AlunoFormComponent,},]
+@NgModule({
+imports: [RouterModule.forChild(alunosRoutes)],
+exports: [RouterModule]})
+export class AlunosRoutingModule{}
+
+//alunos.module.ts
+@NgModule({
+declarations:[AlunosComponent,AlunoFormComponent,AlunoDetalheComponent],
+imports: [CommonModule, AlunosRoutingModule, FormsModule],
+exports: [],
+providers: [AlunosService, AlunosDeactivateGuard, AlunoDetalheResolver],})
+export class AlunosModule{}
+
+//app.module.ts
+imports [AlunosModule]
+
+//alunos.component.html
+<!-- como estamos trabalhando c rotas filhas, precisamos
+passar apenas aluno.id no routerLink -->
+<a [routerLink]="[aluno.id]">{{aluno.nome}}</a>
+
+//.ts
+this.route.navigate(['/alunos', this.aluno.id, 'editar'])
+```
+</li>
+</ol>
