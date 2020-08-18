@@ -5,8 +5,9 @@
 
 ## Anotações:
 <ol>
+<li>Info gerais:
 <ul>
-<li>deve ter cadastrado no index.html um href='/' ou c nome-da-app
+<li>deve ter cadastrado no index.html um base href='/' ou c nome-da-app
 
 ```javascript
 //index.html
@@ -72,6 +73,7 @@ this.inscricao = this.route.queryParams.subscribe(queryParams => {	this.pagina =
 <li>p colocar uma class css p a rota q estiver ativa, usar a diretiva routerLinkActive="ativa", sendo "ativa" o nome da classe css </li>
 </ul>
 
+</li>
 <li>RouterModule.forRoot - rotas p toda a aplicação no app.module.ts, mas o mais correto é separar por modulos, como no app-routing.module.ts
 
 ```javascript
