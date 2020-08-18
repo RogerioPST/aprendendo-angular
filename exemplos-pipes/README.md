@@ -15,6 +15,38 @@
 </li>
 
 <li>
+PIPES BUILT-IN:
+<ul>
+<li>ASYNC - pode ser usado tanto para Promise qto Observable: {{ valorAsync | async}}. Obs: o uso do pipe json não mostra o valor, mas sim o objeto Promise/Observable.
+
+```javascript
+//exemplos-pipes.component.ts
+valorAsync = new Promise((resolve, reject) =>{
+	setTimeout(()=>{ resolve('valor assincrono')}, 20000)})
+valorAsync2 = interval(20000).pipe(map(valor => 'Valor assíncrono 2'));
+//exemplos-pipes.component.html
+<h5>obtendo o resultado assincrono de uma promise com o pipe async, por ex</h5>
+<p>{{ valorAsync | json}}</p>
+<p>{{ valorAsync | async}}</p>
+<h5>obtendo o resultado assincrono do Observable do rxjs com o pipe async, por ex</h5>
+<p>{{ valorAsync2 | json}}</p>
+<p>{{ valorAsync2 | async}}</p>
+```
+</li>
+<li>OUTROS PIPES
+<ul>
+<li>uppercase</li>
+<li>lowercase</li>
+<li>number:'1.1-2'</li>
+<li>currency:'BRL':true</li>
+<li>date:'dd-MM-yyyy'</li>
+<li>json</li>
+</ul>
+</li>
+
+</ul>
+</li>
+<li>
 PIPES CUSTOMIZADOS:
 <ul>
 <li>implementar o metodo transform da interface  PipeTransform c o q vc quer fazer c o seu Pipe:
@@ -81,6 +113,29 @@ export class AppModule { }
 export class MeusSettingsService {
 constructor() { }
 getLocale(){return 'pt-BR'}}
+```
+</li>
+<li>Exemplo de como buscarItensFiltrados sem usar o parametro filtro em um pipe customizado (q n deve ser usado por questão de performance):
+
+```javascript
+//.ts
+filtro: string
+livros: string[] = ['Angular', 'Java', 'CSS']
+obterLivrosFiltrados(){
+if (this.livros.length === 0 || this.filtro === undefined || this.filtro.trim() === ''){ return this.livros}
+let filter = this.filtro.toLowerCase()
+return this.livros.filter(livro => {
+if (livro.toLowerCase().indexOf(filter) >= 0 ){
+return true				}
+return false} )}
+
+//html
+<h5>Maneira correta q deve ser usada em producao - ao se usar filtros nos projetos</h5>
+<ul>
+	<li *ngFor="let liv of obterLivrosFiltrados()">
+		{{liv  }}
+	</li>
+</ul>
 ```
 </li>
 </ol>
