@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Usuario } from './usuario';
 import { Router } from '@angular/router';
-import { EventEmitter } from 'protractor';
 import { threadId } from 'worker_threads';
 
 @Injectable({
@@ -9,8 +8,8 @@ import { threadId } from 'worker_threads';
 })
 export class AuthService {
 	private usuarioAutenticado: boolean = false
-	//mostrarMenuEmitter: EventEmitter = new EventEmitter()
-	//mostrarMenuEmitter2 = new EventEmitter<boolean>()
+	mostrarMenuEmitter = new EventEmitter<boolean>()	
+	//mostrarMenuEmitter2 = new EventEmitter<boolean>();
 
 	constructor(private router: Router) { }
 
@@ -19,15 +18,15 @@ export class AuthService {
 	}
 	
 	fazerLogin(usuario: Usuario){
-		if (usuario.nome == 'u@e.c' && usuario.senha == '123456'){
+		if (usuario.nome == 'u@e' && usuario.senha == '123'){
 			console.log('cheguei no true')
 			this.usuarioAutenticado = true
-		//	this.mostrarMenuEmitter.emit('true')
+			this.mostrarMenuEmitter.emit(true)
 			this.router.navigate(['/'])
 		} else{
 			console.log('cheguei else')
 			this.usuarioAutenticado = false
-		//	this.mostrarMenuEmitter.emit('false')
+			this.mostrarMenuEmitter.emit(false)
 		}
 
 	}

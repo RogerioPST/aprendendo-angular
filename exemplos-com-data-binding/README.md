@@ -191,6 +191,7 @@ nomeDoCurso: string = "Angular";
 <button (click)="decrementa()">-</button>
 <input type="text" readonly [value]="valor" #campoInput>
 <button (click)="incrementa()">+</button>
+
 //arquivo output-property.component.ts
 @Component({  
 	styleUrls: ['./output-property.component.css']

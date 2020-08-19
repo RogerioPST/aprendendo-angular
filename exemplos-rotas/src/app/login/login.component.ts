@@ -15,14 +15,15 @@ export class LoginComponent implements OnInit {
 	
 	
   ngOnInit(): void {
+		this.usuario.nome = 'u@e'
+		this.usuario.senha = '123'
 	}
 
-	fazerLogin(nome: string, senha: string){
-		console.log('usuario', nome)
-		console.log('usuario', senha)
-		this.usuario.nome = nome
-		this.usuario.senha = senha
-		this.authService.fazerLogin(this.usuario)
+	fazerLogin(usuario: Usuario){
+		console.log('usuario', usuario.nome)
+		console.log('usuario', usuario.senha)
+		
+		this.authService.fazerLogin(usuario)
 
 	}
 

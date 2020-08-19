@@ -30,7 +30,7 @@ const alunosRoutes = [
 		{path: ':id', component: AlunoDetalheComponent,
 			resolve:{alunoResolver: AlunoDetalheResolver}
 		},
-		{path: ':id/editar', component: AlunoFormComponent,
+		{path: ':id/editar', component: AlunoFormComponent, 
 		canDeactivate: [AlunosDeactivateGuard]
 		},		
 	]},

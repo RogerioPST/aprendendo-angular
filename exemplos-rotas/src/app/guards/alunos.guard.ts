@@ -7,7 +7,7 @@ import { Observable } from 'rxjs'
   providedIn: 'root'
 })
 //p permitir acesso a uma rota ou n, implementar a interface 
-//canActivate e tb colocar o canActivate no app.routing.module e
+//canActivateChild e tb colocar o canActivateChild no app.routing.module e
 //qq routing q quisermos travar!
 export class AlunosGuard implements CanActivateChild {
 

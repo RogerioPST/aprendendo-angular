@@ -11,6 +11,7 @@ import { CursosGuard } from './guards/cursos.guard';
 import { AlunosGuard } from './guards/alunos.guard';
 import { ProfessoresModule } from './professores/professores.module';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
+import { FormsModule } from '@angular/forms';
 
 
 //import { CursosComponent } from './cursos/cursos.component';
@@ -32,7 +33,8 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao
   ],
   imports: [
     BrowserModule,
-		AppRoutingModule,		
+		AppRoutingModule,	
+		FormsModule,	
 		//CursosModule,-comentado qdo usamos o LAZY LOADING (aula62) - aba Network do console do navegador - arquivo cursos-cursos-module.js
 		//AlunosModule,-comentado qdo usamos o LAZY LOADING (aula62) - aba Network do console do navegador - arquivo alunos-alunos-module.js
 		ProfessoresModule

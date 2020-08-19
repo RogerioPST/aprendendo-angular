@@ -8,7 +8,7 @@ import { ProfessorFormComponent } from './professor-form/professor-form.componen
 //no caso, Professores/novo, pq se n, colide com a rota Professores/:id
 
 //tambem existe o canActivateChild p ser usado aqui no path''
-const ProfessoresRoutes = [
+const professoresRoutes = [
 	{path: 'professores', component: ProfessoresComponent},
 	{path: 'professores/novo', component: ProfessorFormComponent},
 	{path: 'professores/:id', component: ProfessorDetalheComponent},
@@ -16,7 +16,7 @@ const ProfessoresRoutes = [
 ]
 
 @NgModule({
-	imports: [RouterModule.forChild(ProfessoresRoutes)],
+	imports: [RouterModule.forChild(professoresRoutes)],
 	exports: [RouterModule]
 
 })

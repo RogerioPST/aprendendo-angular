@@ -12,7 +12,7 @@ import { IFormCanDeactivate } from 'src/app/guards/iform-candeactivate';
 export class AlunoFormComponent implements OnInit, IFormCanDeactivate {	
 	aluno: any
 	inscricao: Subscription
-	formMudou : boolean = false
+	private formMudou : boolean = false
 
 	constructor(private route: Router, private activatedRoute: ActivatedRoute, private alunosService: AlunosService) { }	
 //metodo presente na interface IFormCanDeactivate.
