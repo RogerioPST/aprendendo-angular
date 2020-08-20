@@ -72,6 +72,7 @@ export class DataFormComponent implements OnInit {
 			//2. FormBuilder - faz por baixo dos panos o codigo acima.
 			this.formulario = this.formBuilder.group({
 				nome: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+				//Validators.pattern(regex)
 //terceiro parametro eh p validacoes assincronas				
 				email: [null, [Validators.required, Validators.email], [this.validarEmail.bind(this)]],
 				confirmarEmail: [null, [FormValidations.equalsTo('email')]],
@@ -142,8 +143,8 @@ this.formulario.get('endereco.cep').statusChanges
 	}
 	onSubmit() {
 		console.log('formulario', this.formulario)
-//codigo abaixo ref aos frameworks serve p recuperar o valor 
-//ao inves de true ou false dos frameworks e filter p retirar
+//codigo abaixo ref ao campo dos frameworks serve p recuperar o valor 
+//ao inves de true ou false do campo dos frameworks e filter p retirar
 //o null
 		let valueSubmit = Object.assign({}, this.formulario.value)
 
@@ -152,9 +153,7 @@ this.formulario.get('endereco.cep').statusChanges
 				.map((v, i) => v ? this.frameworks[i] : null)
 				.filter(v => v !== null)
 		})
-
 		console.log('valuesubmit', valueSubmit)
-
 
 		if (this.formulario.valid) {
 			this.http.post('https://httpbin.org/post',

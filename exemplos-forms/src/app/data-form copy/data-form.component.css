@@ -1,4 +1,0 @@
-/* ng-touched - eh qdo o campo tem foco*/
-.ng-invalid.ng-touched:not(form){
-	border: 2px solid red;
-}

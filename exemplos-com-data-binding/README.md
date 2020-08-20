@@ -11,7 +11,7 @@
 
 ```javascript
 //arquivo html
-<p>String renderizada com interpolação (quem também é uma forma de property binding): {{ url }}</p>
+<p>String renderizada com interpolação (que também é uma forma de property binding): {{ url }}</p>
 <p>Resultado de 1 + 1 : {{ 1+1 }}</p>
 <p>Resultado de 1 + 1 não é: {{ 1+1+ getValor() }}</p>
 <p>Curso de angular: {{ cursoAngular && getCurtirCurso()}}</p>
@@ -32,6 +32,8 @@ urlImagem : string = 'https://images.unsplash.com/photo-1588615419957-bf66d53c6b
 <li>é o valor do componente para o template. há as duas formas de property binding:
 
 ```javascript
+//qdo for string, n coloca colchetes
+<img src="http://urlimg.com" />	
 <img [src]="urlImagem">
 <!-- a linha de cima é um açucar sintatico da linha de baixo-->
 <img bind-src="urlImagem">
@@ -87,7 +89,7 @@ urlImagem : string = 'https://images.unsplash.com/photo-1588615419957-bf66d53c6b
 
 ### EVENT BINDING
 <ol>
-<li>
+<li>todo event binding , por ex, click($event), tem um $event disponivel p ser usado:
 
 ```javascript
 //css

@@ -9,7 +9,7 @@ const routes: Routes = [
 	{ path: 'templateForm', component: TemplateFormComponent},
 	{ path: 'dataForm', component: DataFormComponent},
 	{ path: 'dataForm_a_partir_baseformcomponent', component: DataFormAPartirBaseFormComponent},
-	{ path: '', pathMatch: 'full', redirectTo: 'dataForm_a_partir_baseformcomponent'},
+	{ path: '', pathMatch: 'full', redirectTo: 'dataForm'},
 ];
 
 @NgModule({

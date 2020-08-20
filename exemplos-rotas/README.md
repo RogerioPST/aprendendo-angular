@@ -223,11 +223,13 @@ imports: [ 	BrowserModule,
 ```
 </li>
 
-<li>Login, Guarda de rotas (AuthGuard) e CanActivate:
+<li>Login, Guarda de rotas (AuthGuard), CanLoad e CanActivate:
 <ol>
 <li>criar como serviço e colocar o AuthGuard na pasta guards e renomear p auth.guard.ts.
 </li>
-<li>colocar o AuthGuard como providers de app.module.ts e aplicar o canActivate: [AuthGuard] p a rota q n se quiser q o usuario veja, se n estiver logado.
+<li>colocar o AuthGuard (Guarda de autenticação) como providers de app.module.ts e aplicar o canActivate: [AuthGuard] p a rota q n se quiser q o usuario veja, se n estiver logado.
+</li>
+<li>junto com AuthGuard, é necessário o CanLoad, pois, mesmo com o AuthGuard, os modulos de ALunos e Cursos, q estão com lazy loading (arquivo .js) são carregados, msm sem o usuario ter acesso e é p isso q é usado o CanLoad.
 </li>
 <li>p permitir acesso a uma rota ou n, implementar a interface 
 canActivate e tb colocar o canActivate no app.routing.module e
@@ -240,11 +242,49 @@ qq routing q quisermos travar
 </ol>
 
 ```javascript
-//app.routing.module.ts
+
+//login.component.ts
+export class LoginComponent implements OnInit {
+usuario: Usuario = new Usuario()
+constructor(private authService: AuthService) { }
+ngOnInit(): void {
+this.usuario.nome = 'u@e'
+this.usuario.senha = '123'}
+fazerLogin(usuario: Usuario){				
+this.authService.fazerLogin(usuario)	}}
+
+//login.component.html
+<input [(ngModel)]="usuario.nome" type="text">
+<label for="usuario">Usuário</label>
+<input [(ngModel)]="usuario.senha" type="password">
+<label for="senha">Senha</label>
+<button type="submit" (click)="fazerLogin(usuario)">Login</button>
+
+//app.module.ts
+providers: [AuthService, AuthGuard, CursosGuard, AlunosGuard],
+bootstrap: [AppComponent]
+})
+export class AppModule { }
+
+//Usuario.ts
 export class Usuario{
 	nome: string;
-	senha: string;
-}
+	senha: string;}
+
+//app-routing.module.ts
+const appRoutes : Routes = [
+{path: 'cursos', loadChildren: () => import('./cursos/cursos.module').then(m => m.CursosModule),
+canActivate: [AuthGuard], canLoad: [AuthGuard]	},
+{path: 'alunos', loadChildren: () => import('./alunos/alunos.module').then(m => m.AlunosModule),
+canActivate: [AuthGuard], canLoad: [AuthGuard]},
+{path: 'login',component: LoginComponent},	
+{path: 'home',component: HomeComponent, canActivate:[AuthGuard]},
+{path: '', redirectTo: '/home', pathMatch: 'full'},
+{path: '**',component: PaginaNaoEncontradaComponent, canActivate:[AuthGuard]},]
+@NgModule({
+imports: [RouterModule.forRoot(appRoutes, {useHash: true})],
+exports: [RouterModule]})
+export class AppRoutingModule { }
 
 //cursos.routing.module.ts
 const cursosRoutes : Routes = [		
@@ -252,9 +292,38 @@ const cursosRoutes : Routes = [
 {path: 'naoEncontrado/:id',component: CursoNaoEncontradoComponent},
 {path: ':id',component: CursoDetalheComponent},]
 
-//app.module.ts
-imports: [ 	BrowserModule,
-	AppRoutingModule,],
+//auth.service.ts
+export class AuthService {
+private usuarioAutenticado: boolean = false
+mostrarMenuEmitter = new EventEmitter<boolean>()	
+constructor(private router: Router) { }
+usuarioEstaAutenticado(){
+return this.usuarioAutenticado}
+fazerLogin(usuario: Usuario){
+if (usuario.nome == 'u@e' && usuario.senha == '123'){
+this.usuarioAutenticado = true
+this.mostrarMenuEmitter.emit(true)
+this.router.navigate(['/'])
+} else{
+this.usuarioAutenticado = false
+this.mostrarMenuEmitter.emit(false)
+}	}}
+
+//auth.guard.ts
+export class AuthGuard implements CanActivate, CanLoad {
+constructor(private authService: AuthService,
+private router: Router) { }
+canLoad(route: Route, 
+segments: UrlSegment[]
+): boolean | Observable<boolean> | Promise<boolean> {
+return this.verificarAcesso()}
+private verificarAcesso(){
+if (this.authService.usuarioEstaAutenticado()){
+return true} 
+this.router.navigate(['/login'])
+return false}	
+canActivate( route: ActivatedRouteSnapshot, state: RouterStateSnapshot ): Observable<boolean> | boolean{
+return this.verificarAcesso()}}
 ```
 </li>
 
@@ -343,8 +412,7 @@ export class AlunosDeactivateGuard implements CanDeactivate<IFormCanDeactivate>{
 canDeactivate( component: IFormCanDeactivate, currentRoute: ActivatedRouteSnapshot, currentState: RouterStateSnapshot, 
 nextState?: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
 console.log('guarda de desativacao - testar, por ex, indo em editar dos alunos e estando no editar, tentar clicar em Cursos, vai disparar esse console.log:' )
-return component.podeDesativar()
-}}
+return component.podeDesativar()}}
 
 //alunos.module.ts
 providers: [AlunosService, AlunosDeactivateGuard]
@@ -371,7 +439,7 @@ canDeactivate: [AlunosDeactivateGuard]
 <li>1º- passa pelo AuthGuard</li>
 <li>2º- passa pelo AlunosGuard - guarda de rota filha</li>
 <li>3º- passa pelo AlunosDetalheResolver</li>
-<li>4º- passa ngOnInit do ALunoDetalheComponent</li>
+<li>4º- passa pelo ngOnInit do ALunoDetalheComponent</li>
 </ul>
 </li>
 </ol>
@@ -404,16 +472,14 @@ codigo acima sem usar Resolver e codigo abaixo usando Resolver
 this.inscricao = this.activatedRoute.data.subscribe((informacoes: {alunoResolver: Aluno}) =>{
 // informacoes.aluno (alunoResolver eh o nome q coloquei no 
 //alunos.routing.module)
-this.aluno = informacoes.alunoResolver
-})}
+this.aluno = informacoes.alunoResolver})}
 
 //alunos.module.ts
 providers: [AlunosService, AlunosDeactivateGuard, AlunoDetalheResolver]
 
 //alunos.routing.module.ts
 {path: ':id', component: AlunoDetalheComponent,
-resolve:{alunoResolver: AlunoDetalheResolver}
-}
+resolve:{alunoResolver: AlunoDetalheResolver}}
 
 //aluno.ts
 export class Aluno{
@@ -425,27 +491,7 @@ constructor(
 ```
 </li>
 
-<li>Guarda de Rotas - CanLoad:
-<ol>
-<li>o modulo de ALunos (arquivo .js) é carregado, msm sem o usuario ter acesso e é p isso q é usado o CanLoad.
-</li>
-</ol>
-
-```javascript
-//aluno-detalhe.resolver.ts
-
-//alunos.module.ts
-providers: [AlunosService, AlunosDeactivateGuard, AlunoDetalheResolver]
-
-//alunos.routing.module.ts
-{path: ':id', component: AlunoDetalheComponent,
-resolve:{alunoResolver: AlunoDetalheResolver}
-}
-
-```
-</li>
-
-<li>definindo rota padrão e wildcard (rota n encontrada) e Estilo de url: HTML5 ou usando #, pois pode ser q o backend n reconheça a rota:
+<li>definindo rota padrão e wildcard (rota n encontrada) e Estilo de url: HTML5 ou usando #, pois pode ser q o backend n reconheça a rota ou qdo estou tentando acessar uma url p chamada ajax:
 
 ```javascript
 //app.routing.module.ts

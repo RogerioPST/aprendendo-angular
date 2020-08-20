@@ -92,17 +92,18 @@ export class TemplateFormComponent implements OnInit {
 		console.log('form', f)
 		this.http.post('https://httpbin.org/post', 
 			JSON.stringify(f.value)).subscribe(response =>{
-				console.log('post executado', response)
+				console.log('post executado no end teste', response)
 			})
 	}
 	verificaValidTouched(campo){
 		return !campo.valid && campo.touched
 	}
+//colocar dentro de return o conteudo q viria dentro do objeto da diretiva ngClass: nomeClasse css : condição p receber essa classe
 	aplicaCssErro(campo){
 		return {
 			'ng-invalid.ng-touched:not(form)': this.verificaValidTouched(campo)
 		}
-	}
+}
 
 
 }
