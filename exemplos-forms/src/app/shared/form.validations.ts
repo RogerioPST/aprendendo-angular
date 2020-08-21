@@ -2,6 +2,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms'
 
 export class FormValidations {
 	//funcao p obrigar a preencher o minimo de itens no checkbox
+//função dentro de outra funcao por causa do parametro extra min =1
 	static requiredMinCheckbox(min = 1){
 		const validator = (formArray: FormArray) =>{
 		/* 
@@ -30,9 +31,9 @@ export class FormValidations {
 	static cepValidator(control: FormControl){
 		const cep = control.value
 		if (cep && cep !== ''){
-			const validacep = /^[0-9]{8}$/;
+			console.log('cep aqui', cep)
+			const validacep = /^[0-9]{5}(-)*[0-9]{3}$/;
 			return validacep.test(cep) ? null : {cepInvalido: true}
-
 		}
 
 	}
@@ -66,10 +67,12 @@ export class FormValidations {
 	static getErrorMsg(fieldName: string, validatorName: string,
 		validatorValue?: any){
 		const config ={
-			'required': `${fieldName} é obrigatório.`,
+			'required': `${fieldName} é obrigatório!`,
 			'minlength': `${fieldName} precisa ter no mínimo ${validatorValue.requiredLength} caracteres.`,
 			'maxlength': `${fieldName} precisa ter no máximo ${validatorValue.requiredLength} caracteres.`,
 			'cepInvalido': 'CEP inválido',
+			'emailInvalido': 'Email inválido',
+			'equalsTo': 'Não são iguais',
 		}
 		return config[validatorName]
 	}

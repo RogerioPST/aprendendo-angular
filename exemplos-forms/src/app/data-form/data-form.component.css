@@ -2,3 +2,9 @@
 .ng-invalid.ng-touched:not(form){
 	border: 2px solid red;
 }
+
+.ng-invalid.ng-touched:not(form)::before{
+	border: 2px solid red;
+	content: 'X';
+}
+

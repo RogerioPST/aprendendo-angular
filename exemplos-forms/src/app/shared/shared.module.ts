@@ -28,6 +28,6 @@ import { BaseFormComponent } from './base-form/base-form.component';
 		ErrorMsgComponent,
 		InputFieldComponent,		
 	],
-	providers: [DropdownService]
+	providers: []
 })
 export class SharedModule { }

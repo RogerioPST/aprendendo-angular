@@ -36,9 +36,10 @@ export class DataFormComponent implements OnInit {
 		setTecnologias(){
 			this.formulario.get('tecnologias').setValue(['Java', 'PHP', 'CSS'])
 		}
-
+//comparator eh usado p qdo queremos passar e verificar o objeto inteiro e n somente o id
 		compararCargos(obj1, obj2){
-			return obj1 && obj2 ? 
+//se existe o obj1 e se existe o obj2, entao comparo nome e nivel, caso contrario, deixo o angular comparar o endereço de memoria q eh o q o angular ja faz normalmente	
+			return (obj1 && obj2) ? 
 				(obj1.nome === obj2.nome && obj1.nivel ===obj2.nivel):
 				obj1 === obj2
 		}
@@ -146,18 +147,19 @@ this.formulario.get('endereco.cep').statusChanges
 //codigo abaixo ref ao campo dos frameworks serve p recuperar o valor 
 //ao inves de true ou false do campo dos frameworks e filter p retirar
 //o null
-		let valueSubmit = Object.assign({}, this.formulario.value)
-
-		valueSubmit = Object.assign(valueSubmit, {
-			frameworks: valueSubmit.frameworks
+//faz uma copia dos valores do formulario
+		let copiaDosValoresDoFormulario = Object.assign({}, this.formulario.value)
+//faço outra copia, mas dessa vez, faço replace apenas dos frameworks
+		copiaDosValoresDoFormulario = Object.assign(copiaDosValoresDoFormulario, {
+			frameworks: copiaDosValoresDoFormulario.frameworks
 				.map((v, i) => v ? this.frameworks[i] : null)
 				.filter(v => v !== null)
 		})
-		console.log('valuesubmit', valueSubmit)
+		console.log('copiaDosValoresDoFormulario', copiaDosValoresDoFormulario)
 
 		if (this.formulario.valid) {
 			this.http.post('https://httpbin.org/post',
-				JSON.stringify(valueSubmit))
+				JSON.stringify(copiaDosValoresDoFormulario))
 				.subscribe(response => {
 					console.log('post executado', response)
 					this.resetar()
@@ -175,6 +177,7 @@ this.formulario.get('endereco.cep').statusChanges
 			console.log('campo', campo)
 			const controle = formGroup.get(campo)
 			controle.markAsTouched()
+//			controle.markAsDirty()
 			if (controle instanceof FormGroup) {
 				this.verificaValidacoesForm(controle)
 			}

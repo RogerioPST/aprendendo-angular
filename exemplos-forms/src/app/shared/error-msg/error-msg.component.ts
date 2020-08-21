@@ -23,8 +23,10 @@ export class ErrorMsgComponent implements OnInit {
   ngOnInit(): void {
 	}
 	
+	//itera e verifica e mostra apenas uma validação por vez
 	get errorMessage(){
 		for (const propertyName in this.control.errors){
+			console.log('error-msg.component.ts', propertyName)
 			if (this.control.errors.hasOwnProperty(propertyName) &&
 			this.control.touched){
 				return FormValidations.getErrorMsg(this.label, propertyName, 

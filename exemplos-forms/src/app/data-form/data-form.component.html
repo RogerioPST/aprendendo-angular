@@ -168,7 +168,9 @@ automaticamente-->
 	</div>		
 	<div>
 		<label for="termos">termos</label>	
-		<input type="checkbox" formControlName="termos" id="termos">
+		<input type="checkbox" formControlName="termos" id="termos"
+		[ngClass]="aplicaCssErro('termos')"
+		>
 		Aceito os termos
 	</div>		
 	<app-campo-control-erro 

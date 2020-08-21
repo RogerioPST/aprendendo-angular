@@ -8,7 +8,7 @@
 <li>Informações sobre os Serviços:
 <ul>
 <li>pode ser feito um settingsService p fornecer info da app, usuarios p a app inteira</li>
-<li>são Singletons e são colocados apenas em um dos providers do módulo p ficarem disponiveis p aquele modulo ou no app.module p app toda ou apenas no Componente p ficar disponivel apenas para aquele componente: 'providers: [CursosService,LogService]'</li>
+<li>são Singletons e são colocados apenas em um dos providers do módulo p ficarem disponiveis p aquele modulo ou no app.module p app toda ou apenas no Componente p ficar disponivel apenas para aquele componente: 'providers: [CursosService,LogService]'. A partir da versão 6 do Angular, com o "provided in" do serviço, n precisa mais coloca-lo como providers nos modulos.</li>
 <li>se quiser q tenha mais de uma instancia do CursosService, colocar como provider em mais de um Componente.</li>
 </ul>
 </li>

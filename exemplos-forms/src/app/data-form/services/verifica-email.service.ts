@@ -14,6 +14,7 @@ export class VerificaEmailService {
 			.pipe(
 //delay de segundos p n bombardear o servidor e causar deny of service				
 				delay(2000),
+//map, pois vou descartar qualquer outra coisa q tenha vindo no json q n tenho interesse				
 				map((dados: {emails: any[]}) => dados.emails),
 				tap(console.log),
 				map((dados: {email: string}[]) => dados.filter(v => v.email === email)),
